@@ -12,14 +12,27 @@
         tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/nav_gallery"
-        android:name="com.example.expendituremanagementapp.ui.gallery.GalleryFragment"
-        android:label="@string/menu_gallery"
-        tools:layout="@layout/fragment_gallery" />
-
+        android:id="@+id/nav_statistic"
+        android:name="com.example.expendituremanagementapp.ui.statistic.StatisticFragment"
+        android:label="Statistic"
+        tools:layout="@layout/fragment_statistic" />
     <fragment
-        android:id="@+id/nav_slideshow"
-        android:name="com.example.expendituremanagementapp.ui.slideshow.SlideshowFragment"
-        android:label="@string/menu_slideshow"
-        tools:layout="@layout/fragment_slideshow" />
+        android:id="@+id/nav_plan"
+        android:name="com.example.expendituremanagementapp.ui.plan.PlanFragment"
+        android:label="Plan"
+        tools:layout="@layout/fragment_plan" />
+    <fragment
+        android:id="@+id/nav_expense"
+        android:name="com.example.expendituremanagementapp.ui.expense.ExpenseFragment"
+        android:label="Expenses"
+        tools:layout="@layout/fragment_expense" />
+    <fragment
+        android:id="@+id/nav_renevue"
+        android:name="com.example.expendituremanagementapp.ui.renevue.RenevueFragment"
+        android:label="Renevues"
+        tools:layout="@layout/fragment_renevue" />
+    <fragment
+        android:id="@+id/nav_exit"
+        android:name="com.example.expendituremanagementapp.ui.home.HomeFragment"
+        tools:layout="@layout/fragment_home" />
 </navigation>
