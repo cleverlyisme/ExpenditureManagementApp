@@ -39,11 +39,10 @@ public class StatisticFragment extends Fragment {
      * @return A new instance of fragment StatisticFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static StatisticFragment newInstance(String param1, String param2) {
+    public static StatisticFragment newInstance() {
         StatisticFragment fragment = new StatisticFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
+
         fragment.setArguments(args);
         return fragment;
     }
@@ -51,10 +50,6 @@ public class StatisticFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
