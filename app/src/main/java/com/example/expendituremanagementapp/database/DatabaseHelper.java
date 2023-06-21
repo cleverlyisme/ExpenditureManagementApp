@@ -40,8 +40,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 "name TEXT, " +
                 "price REAL, " +
                 "note TEXT, " +
-                "expenseTypeId INTEGER NOT NULL, " +
-                "FOREIGN KEY (expenseTypeId) REFERENCES expense_types(id) ON DELETE CASCADE)";
+                "userId INTEGER NOT NULL, " +
+                "FOREIGN KEY (userId) REFERENCES users(id) ON DELETE CASCADE)";
         db.execSQL(createExpensesTableQuery);
 
         String createRevenuesTableQuery = "CREATE TABLE IF NOT EXISTS revenues (" +
@@ -49,8 +49,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 "name TEXT, " +
                 "price REAL, " +
                 "note TEXT, " +
-                "revenueTypeId INTEGER NOT NULL, " +
-                "FOREIGN KEY (revenueTypeId) REFERENCES revenue_types(id) ON DELETE CASCADE)";
+                "userId INTEGER NOT NULL, " +
+                "FOREIGN KEY (userId) REFERENCES users(id) ON DELETE CASCADE)";
         db.execSQL(createRevenuesTableQuery);
     }
 
