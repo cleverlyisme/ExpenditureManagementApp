@@ -1,6 +1,13 @@
 package com.example.expendituremanagementapp.model;
 
+import android.database.sqlite.SQLiteDatabase;
+
+import com.example.expendituremanagementapp.database.DatabaseHelper;
+
 public class RenevueType {
+    private static DatabaseHelper dbHelper;
+    private static SQLiteDatabase db = dbHelper.getWritableDatabase();
+
     private int id = -1, userId = -1;
     private String name;
 

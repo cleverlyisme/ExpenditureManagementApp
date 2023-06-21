@@ -10,18 +10,20 @@ import com.example.expendituremanagementapp.database.DatabaseHelper;
 public class Renevue {
     private static DatabaseHelper dbHelper;
     private static SQLiteDatabase db = dbHelper.getWritableDatabase();
-    private int id = -1, expenseTypeId = -1;
+
+    private int id = -1, renevueTypeId=-1, userId = -1;
     private String name, note;
     private float price;
 
     public Renevue() {}
 
-    public Renevue(int id, int expenseTypeId, String name, String note, float price) {
+    public Renevue(int id, String name, String note, float price, int renevueTypeId, int userId) {
         this.id = id;
-        this.expenseTypeId = expenseTypeId;
         this.name = name;
         this.note = note;
         this.price = price;
+        this.renevueTypeId = renevueTypeId;
+        this.userId = userId;
     }
 
     public int getId() {
@@ -30,14 +32,6 @@ public class Renevue {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public int getExpenseTypeId() {
-        return expenseTypeId;
-    }
-
-    public void setExpenseTypeId(int expenseTypeId) {
-        this.expenseTypeId = expenseTypeId;
     }
 
     public String getName() {
@@ -64,7 +58,23 @@ public class Renevue {
         this.price = price;
     }
 
-    public static LiveData<Float> totalRenevue() {
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+
+    public int getRenevueTypeId() {
+        return renevueTypeId;
+    }
+
+    public void setRenevueTypeId(int renevueTypeId) {
+        this.renevueTypeId = renevueTypeId;
+    }
+
+    public static LiveData<Float> getTotalRenevue() {
         MutableLiveData<Float> totalRevenueLiveData = new MutableLiveData<>();
 
         Cursor cursor = db.rawQuery("SELECT SUM(price) FROM revenues", null);

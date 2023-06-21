@@ -1,6 +1,13 @@
 package com.example.expendituremanagementapp.model;
 
+import android.database.sqlite.SQLiteDatabase;
+
+import com.example.expendituremanagementapp.database.DatabaseHelper;
+
 public class User {
+    private static DatabaseHelper dbHelper;
+    private static SQLiteDatabase db = dbHelper.getWritableDatabase();
+
     private static int id = -1;
     private static String username="", password="";
 
