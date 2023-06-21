@@ -1,15 +1,15 @@
 package com.example.expendituremanagementapp.model;
 
 public class Renevue {
-    private int id = -1, expenseTypeId = -1;
+    private int id = -1, userId = -1;
     private String name, note;
     private float price;
 
     public Renevue() {}
 
-    public Renevue(int id, int expenseTypeId, String name, String note, float price) {
+    public Renevue(int id, int userId, String name, String note, float price) {
         this.id = id;
-        this.expenseTypeId = expenseTypeId;
+        this.userId = userId;
         this.name = name;
         this.note = note;
         this.price = price;
@@ -23,12 +23,12 @@ public class Renevue {
         this.id = id;
     }
 
-    public int getExpenseTypeId() {
-        return expenseTypeId;
+    public int getUserId() {
+        return userId;
     }
 
-    public void setExpenseTypeId(int expenseTypeId) {
-        this.expenseTypeId = expenseTypeId;
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
     public String getName() {
