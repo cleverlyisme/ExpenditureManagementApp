@@ -8,8 +8,8 @@ import androidx.lifecycle.MutableLiveData;
 import com.example.expendituremanagementapp.database.DatabaseHelper;
 
 public class Renevue {
-    private static DatabaseHelper dbHelper;
-    private static SQLiteDatabase db = dbHelper.getWritableDatabase();
+//    private static DatabaseHelper dbHelper;
+//    private static SQLiteDatabase db = dbHelper.getWritableDatabase();
 
     private int id = -1, renevueTypeId=-1, userId = -1;
     private String name, note;
@@ -17,7 +17,7 @@ public class Renevue {
 
     public Renevue() {}
 
-    public Renevue(int id, String name, String note, float price, int renevueTypeId, int userId) {
+    public Renevue(int id, String name, float price, String note, int userId, int renevueTypeId) {
         this.id = id;
         this.name = name;
         this.note = note;
@@ -74,21 +74,21 @@ public class Renevue {
         this.renevueTypeId = renevueTypeId;
     }
 
-    public static LiveData<Float> getTotalRenevue() {
-        MutableLiveData<Float> totalRevenueLiveData = new MutableLiveData<>();
-
-        Cursor cursor = db.rawQuery("SELECT SUM(price) FROM revenues", null);
-        float sum = 0;
-
-        if (cursor.moveToFirst()) {
-            sum = cursor.getFloat(0);
-        }
-
-        cursor.close();
-        db.close();
-
-        totalRevenueLiveData.setValue(sum);
-
-        return totalRevenueLiveData;
-    }
+//    public static LiveData<Float> getTotalRenevue() {
+//        MutableLiveData<Float> totalRevenueLiveData = new MutableLiveData<>();
+//
+//        Cursor cursor = db.rawQuery("SELECT SUM(price) FROM revenues", null);
+//        float sum = 0;
+//
+//        if (cursor.moveToFirst()) {
+//            sum = cursor.getFloat(0);
+//        }
+//
+//        cursor.close();
+//        db.close();
+//
+//        totalRevenueLiveData.setValue(sum);
+//
+//        return totalRevenueLiveData;
+//    }
 }

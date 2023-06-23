@@ -2,6 +2,8 @@ package com.example.expendituremanagementapp.ui.renevue;
 
 import androidx.lifecycle.ViewModelProvider;
 
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -15,8 +17,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.expendituremanagementapp.R;
+import com.example.expendituremanagementapp.database.DatabaseHelper;
 import com.example.expendituremanagementapp.database.adapter.RenevueAdapter;
 import com.example.expendituremanagementapp.model.Renevue;
+import com.example.expendituremanagementapp.model.RenevueType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +30,8 @@ public class RenevueDetailFragment extends Fragment {
     private RenevueDetailViewModel mViewModel;
     private RecyclerView rcV;
     private RenevueAdapter adapter;
-
+    private ArrayList<Renevue> arrayList;
+    private DatabaseHelper database;
     public static RenevueDetailFragment newInstance() {
         return new RenevueDetailFragment();
     }
@@ -42,22 +47,37 @@ public class RenevueDetailFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         rcV = view.findViewById(R.id.rcV_renevue_detail);
-        adapter = new RenevueAdapter(view.getContext());
+        arrayList =new ArrayList<>();
+        adapter = new RenevueAdapter(view.getContext(), arrayList);
+
+        database = new DatabaseHelper(view.getContext());
+        SQLiteDatabase db = database.getWritableDatabase();
+
+        db.execSQL("INSERT INTO revenues VALUES(null, 'Lương', 123000, '', 1, 1)");
+        db.execSQL("DELETE FROM revenues");
+        db.execSQL("INSERT INTO revenues VALUES(null, 'Lương', 123000, 'xin chao toi la nguyen', 1, 1)");
 
         LinearLayoutManager linearLayoutManager =new LinearLayoutManager(view.getContext(), RecyclerView.VERTICAL, false);
         rcV.setLayoutManager(linearLayoutManager);
-        adapter.setData(getListRenevue());
-
+        adapter.setData(arrayList);
         rcV.setAdapter(adapter);
+        actionGetData();
     }
 
-    private List<Renevue> getListRenevue(){
-        List<Renevue> list = new ArrayList<>();
-//        list.add(new Renevue(1, 1, "nguyen", "khong", 123000));
-//        list.add(new Renevue(2, 2, "Tran", "khong", 1234000));
-//        list.add(new Renevue(3, 3, "Quang", "khong", 12345000));
-
-        return list;
+    private void actionGetData(){
+        SQLiteDatabase db = database.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM revenues", null);
+        arrayList.clear();
+        while (cursor.moveToNext()){
+            int id = cursor.getInt(0);
+            String name = cursor.getString(1);
+            float price = cursor.getFloat(2);
+            String note = cursor.getString(3);
+            int userId = cursor.getInt(4);
+            int renevueTypeId = cursor.getType(5);
+            arrayList.add(new Renevue(id, name, price, note, userId, renevueTypeId));
+            adapter.notifyDataSetChanged();
+        }
     }
 
     @Override
