@@ -6,22 +6,25 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.expendituremanagementapp.R;
 import com.example.expendituremanagementapp.model.RenevueType;
+import com.example.expendituremanagementapp.ui.renevue.RenevueTypeFragment;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class RenevueTypeAdapter extends RecyclerView.Adapter<RenevueTypeAdapter.RenevueTypeViewAdapter>{
-    private Context context;
+    private RenevueTypeFragment context;
     private List<RenevueType> lists;
 
-    public RenevueTypeAdapter(Context context) {
+    public RenevueTypeAdapter(RenevueTypeFragment context, List<RenevueType> lists) {
         this.context = context;
+        this.lists = lists;
     }
     public void setData(List<RenevueType> list){
         this.lists = list;
@@ -41,6 +44,29 @@ public class RenevueTypeAdapter extends RecyclerView.Adapter<RenevueTypeAdapter.
         if(renevueType == null)
             return;
         holder.name.setText(renevueType.getName());
+
+        holder.delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int id = renevueType.getId();
+                if(id == 1 || id == 2){
+                    Toast.makeText(context.getActivity(), "Loại thưởng này không thể xóa!", Toast.LENGTH_SHORT).show();
+                }
+                else
+                    context.delete(renevueType.getName(), renevueType.getId());
+            }
+        });
+        holder.edit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int id = renevueType.getId();
+                if(id == 1 || id == 2){
+                    Toast.makeText(context.getActivity(), "Loại thưởng này không thể sửa!", Toast.LENGTH_SHORT).show();
+                }
+                else
+                    context.edit(renevueType.getName(), renevueType.getId());
+            }
+        });
     }
 
     @Override
@@ -54,11 +80,13 @@ public class RenevueTypeAdapter extends RecyclerView.Adapter<RenevueTypeAdapter.
 
     public class RenevueTypeViewAdapter extends RecyclerView.ViewHolder {
         private TextView name;
-        private ImageView img1, img2;
+        private ImageView edit, delete;
         public RenevueTypeViewAdapter(@NonNull View itemView) {
             super(itemView);
 
-            name = itemView.findViewById(R.id.renevue_type_name);
+            name = itemView.findViewById(R.id.renevue_type_item_name);
+            edit = itemView.findViewById(R.id.renevue_type_item_edit);
+            delete = itemView.findViewById(R.id.renevue_type_item_delete);
         }
     }
 }

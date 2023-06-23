@@ -13,7 +13,7 @@
         android:textColor="#E91E63"
         android:gravity="center"/>
     <EditText
-        android:id="@+id/edt_renevue_type_name"
+        android:id="@+id/edt_renevue_type_add_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Nhập tên loại thu"
@@ -34,7 +34,7 @@
             android:textSize="18sp"
             android:layout_margin="10dp"/>
         <Button
-            android:id="@+id/btn_renevue_type_canel"
+            android:id="@+id/btn_renevue_type_add_canel"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
