@@ -6,7 +6,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "budget_management.db";
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -51,6 +51,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 "name TEXT, " +
                 "price REAL, " +
                 "note TEXT, " +
+                "date DATE DEFAULT CURRENT_DATE, " +
                 "userId INTEGER NOT NULL, " +
                 "renevueTypeId INTEGER NOT NULL, " +
                 "FOREIGN KEY (userId) REFERENCES users(id) ON DELETE CASCADE,"+

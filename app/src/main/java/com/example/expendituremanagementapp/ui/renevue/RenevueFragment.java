@@ -12,7 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.expendituremanagementapp.R;
-import com.example.expendituremanagementapp.database.adapter.RenevueViewPage2Adapter;
+import com.example.expendituremanagementapp.adapter.RenevueViewPage2Adapter;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 

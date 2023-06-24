@@ -18,12 +18,11 @@ import android.view.ViewGroup;
 
 import com.example.expendituremanagementapp.R;
 import com.example.expendituremanagementapp.database.DatabaseHelper;
-import com.example.expendituremanagementapp.database.adapter.RenevueAdapter;
+import com.example.expendituremanagementapp.adapter.RenevueAdapter;
 import com.example.expendituremanagementapp.model.Renevue;
-import com.example.expendituremanagementapp.model.RenevueType;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.List;
 
 public class RenevueDetailFragment extends Fragment {
 
@@ -48,18 +47,17 @@ public class RenevueDetailFragment extends Fragment {
 
         rcV = view.findViewById(R.id.rcV_renevue_detail);
         arrayList =new ArrayList<>();
-        adapter = new RenevueAdapter(view.getContext(), arrayList);
 
         database = new DatabaseHelper(view.getContext());
         SQLiteDatabase db = database.getWritableDatabase();
-
-        db.execSQL("INSERT INTO revenues VALUES(null, 'Lương', 123000, '', 1, 1)");
-        db.execSQL("DELETE FROM revenues");
-        db.execSQL("INSERT INTO revenues VALUES(null, 'Lương', 123000, 'xin chao toi la nguyen', 1, 1)");
+        database.onCreate(db);
+//        db.execSQL("INSERT INTO revenues VALUES(null, 'Lương', 123000, 'xin chào', date('now'), 1, 1)");
+//        db.execSQL("DELETE FROM revenues");
+//        db.execSQL("INSERT INTO revenues VALUES(null, 'Lương', 123000, 'xin chao toi la nguyen', date('now'), 1, 1)");
 
         LinearLayoutManager linearLayoutManager =new LinearLayoutManager(view.getContext(), RecyclerView.VERTICAL, false);
         rcV.setLayoutManager(linearLayoutManager);
-        adapter.setData(arrayList);
+        adapter = new RenevueAdapter(view.getContext(), arrayList);
         rcV.setAdapter(adapter);
         actionGetData();
     }
@@ -73,9 +71,10 @@ public class RenevueDetailFragment extends Fragment {
             String name = cursor.getString(1);
             float price = cursor.getFloat(2);
             String note = cursor.getString(3);
-            int userId = cursor.getInt(4);
-            int renevueTypeId = cursor.getType(5);
-            arrayList.add(new Renevue(id, name, price, note, userId, renevueTypeId));
+            LocalDate date = LocalDate.parse(cursor.getString(4));
+            int userId = cursor.getInt(5);
+            int renevueTypeId = cursor.getInt(6);
+            arrayList.add(new Renevue(id, name, price, note, date, userId, renevueTypeId));
             adapter.notifyDataSetChanged();
         }
     }

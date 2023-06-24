@@ -4,8 +4,6 @@ import androidx.lifecycle.ViewModelProvider;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.content.ContentValues;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -29,12 +27,10 @@ import android.widget.Toast;
 
 import com.example.expendituremanagementapp.R;
 import com.example.expendituremanagementapp.database.DatabaseHelper;
-import com.example.expendituremanagementapp.database.adapter.RenevueTypeAdapter;
-import com.example.expendituremanagementapp.model.Renevue;
+import com.example.expendituremanagementapp.adapter.RenevueTypeAdapter;
 import com.example.expendituremanagementapp.model.RenevueType;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class RenevueTypeFragment extends Fragment {
     private RenevueTypeViewModel mViewModel;
@@ -53,7 +49,7 @@ public class RenevueTypeFragment extends Fragment {
 
         rcV = view.findViewById(R.id.rcV_renevue_type);
         arrayList = new ArrayList<>();
-        adapter = new RenevueTypeAdapter(this, arrayList);
+//        adapter = new RenevueTypeAdapter(this, arrayList);
         tvAdd = view.findViewById(R.id.tv_renevue_type_add);
 
         database = new DatabaseHelper(view.getContext());
@@ -105,7 +101,7 @@ public class RenevueTypeFragment extends Fragment {
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(view.getContext(), RecyclerView.VERTICAL, false);
         rcV.setLayoutManager(linearLayoutManager);
-        adapter.setData(arrayList);
+        adapter = new RenevueTypeAdapter(this, arrayList);
         rcV.setAdapter(adapter);
 
         actionGetData();

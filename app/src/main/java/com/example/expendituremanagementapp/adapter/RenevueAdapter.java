@@ -1,4 +1,4 @@
-package com.example.expendituremanagementapp.database.adapter;
+package com.example.expendituremanagementapp.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -7,12 +7,12 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.dynamicanimation.animation.SpringAnimation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.expendituremanagementapp.R;
 import com.example.expendituremanagementapp.model.Renevue;
 
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 public class RenevueAdapter extends RecyclerView.Adapter<RenevueAdapter.RenevueViewAdapter>{
@@ -22,11 +22,6 @@ public class RenevueAdapter extends RecyclerView.Adapter<RenevueAdapter.RenevueV
     public RenevueAdapter(Context context, List<Renevue> lists) {
         this.context = context;
         this.lists = lists;
-    }
-
-    public void setData(List<Renevue> list){
-        this.lists = list;
-        notifyDataSetChanged();
     }
 
     @NonNull
@@ -44,6 +39,10 @@ public class RenevueAdapter extends RecyclerView.Adapter<RenevueAdapter.RenevueV
         holder.name.setText(renevue.getName());
         holder.note.setText(renevue.getNote());
         holder.price.setText(renevue.getPrice() + "");
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+        String formattedDate = renevue.getDate().format(formatter);
+        holder.date.setText(formattedDate);
     }
 
     @Override
@@ -56,13 +55,14 @@ public class RenevueAdapter extends RecyclerView.Adapter<RenevueAdapter.RenevueV
     }
 
     public class RenevueViewAdapter extends RecyclerView.ViewHolder{
-        private TextView name, note, price;
+        private TextView name, note, price, date;
         public RenevueViewAdapter(@NonNull View itemView) {
             super(itemView);
 
             name = itemView.findViewById(R.id.revenue_detail_name);
             note = itemView.findViewById(R.id.revenue_detail_note);
             price = itemView.findViewById(R.id.revenue_detail_price);
+            date = itemView.findViewById(R.id.revenue_detail_date);
         }
     }
 }
