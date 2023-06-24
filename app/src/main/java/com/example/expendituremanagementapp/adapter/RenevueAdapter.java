@@ -1,4 +1,4 @@
-package com.example.expendituremanagementapp.database.adapter;
+package com.example.expendituremanagementapp.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.dynamicanimation.animation.SpringAnimation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.expendituremanagementapp.R;

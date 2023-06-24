@@ -8,6 +8,8 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.example.expendituremanagementapp.database.DatabaseHelper;
 
+import java.sql.Date;
+
 public class Expense {
     private static DatabaseHelper dbHelper;
     private static SQLiteDatabase db = dbHelper.getWritableDatabase();
@@ -15,6 +17,7 @@ public class Expense {
     private int id = -1, expenseTypeId=-1, userId = -1;
     private String name, note;
     private float price;
+    private Date date;
 
     public Expense() {}
 
@@ -72,6 +75,14 @@ public class Expense {
 
     public void setExpenseTypeId(int expenseTypeId) {
         this.expenseTypeId = expenseTypeId;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 
     public static LiveData<Float> getTotalExpense() {

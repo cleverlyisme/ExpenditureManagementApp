@@ -1,4 +1,4 @@
-package com.example.expendituremanagementapp.database.adapter;
+package com.example.expendituremanagementapp.adapter;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;

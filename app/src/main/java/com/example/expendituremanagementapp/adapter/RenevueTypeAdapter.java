@@ -1,6 +1,5 @@
-package com.example.expendituremanagementapp.database.adapter;
+package com.example.expendituremanagementapp.adapter;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +14,6 @@ import com.example.expendituremanagementapp.R;
 import com.example.expendituremanagementapp.model.RenevueType;
 import com.example.expendituremanagementapp.ui.renevue.RenevueTypeFragment;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class RenevueTypeAdapter extends RecyclerView.Adapter<RenevueTypeAdapter.RenevueTypeViewAdapter>{

@@ -40,6 +40,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 "name TEXT, " +
                 "price REAL, " +
                 "note TEXT, " +
+                "date DATE, " +
                 "userId INTEGER NOT NULL, " +
                 "expenseTypeId INTEGER NOT NULL, " +
                 "FOREIGN KEY (userId) REFERENCES users(id) ON DELETE CASCADE,"+
@@ -51,6 +52,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 "name TEXT, " +
                 "price REAL, " +
                 "note TEXT, " +
+                "date DATE, " +
                 "userId INTEGER NOT NULL, " +
                 "renevueTypeId INTEGER NOT NULL, " +
                 "FOREIGN KEY (userId) REFERENCES users(id) ON DELETE CASCADE,"+

@@ -4,8 +4,6 @@ import androidx.lifecycle.ViewModelProvider;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.content.ContentValues;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -29,12 +27,10 @@ import android.widget.Toast;
 
 import com.example.expendituremanagementapp.R;
 import com.example.expendituremanagementapp.database.DatabaseHelper;
-import com.example.expendituremanagementapp.database.adapter.RenevueTypeAdapter;
-import com.example.expendituremanagementapp.model.Renevue;
+import com.example.expendituremanagementapp.adapter.RenevueTypeAdapter;
 import com.example.expendituremanagementapp.model.RenevueType;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class RenevueTypeFragment extends Fragment {
     private RenevueTypeViewModel mViewModel;

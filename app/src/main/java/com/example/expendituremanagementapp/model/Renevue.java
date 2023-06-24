@@ -7,6 +7,8 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.example.expendituremanagementapp.database.DatabaseHelper;
 
+import java.sql.Date;
+
 public class Renevue {
     private static DatabaseHelper dbHelper;
     private static SQLiteDatabase db = dbHelper.getWritableDatabase();
@@ -14,6 +16,7 @@ public class Renevue {
     private int id = -1, renevueTypeId=-1, userId = -1;
     private String name, note;
     private float price;
+    private Date date;
 
     public Renevue() {}
 
@@ -72,6 +75,14 @@ public class Renevue {
 
     public void setRenevueTypeId(int renevueTypeId) {
         this.renevueTypeId = renevueTypeId;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 
     public static LiveData<Float> getTotalRenevue() {

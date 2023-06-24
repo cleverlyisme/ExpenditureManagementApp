@@ -15,7 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.expendituremanagementapp.R;
-import com.example.expendituremanagementapp.database.adapter.RenevueAdapter;
+import com.example.expendituremanagementapp.adapter.RenevueAdapter;
 import com.example.expendituremanagementapp.model.Renevue;
 
 import java.util.ArrayList;
