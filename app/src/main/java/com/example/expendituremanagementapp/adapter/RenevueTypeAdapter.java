@@ -29,6 +29,10 @@ public class RenevueTypeAdapter extends RecyclerView.Adapter<RenevueTypeAdapter.
         this.context = context;
         this.lists = lists;
     }
+    public void setData(List<RenevueType> lists){
+        this.lists = lists;
+        notifyDataSetChanged();
+    }
 
     @NonNull
     @Override

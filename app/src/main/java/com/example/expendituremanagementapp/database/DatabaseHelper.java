@@ -70,8 +70,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = getReadableDatabase();
         return db.rawQuery(select, null);
     }
-    public void insert_Renevue_Type(RenevueType renevueType){
-        String insert = "INSERT INTO revenue_types VALUES (null, '"+renevueType.getName()+"', "+renevueType.getUserId()+")";
+    public void insert_Renevue_Type(String name, int userID){
+        String insert = "INSERT INTO revenue_types VALUES (null, '"+name+"', "+userID+")";
         SQLiteDatabase db = getWritableDatabase();
         db.execSQL(insert);
     }

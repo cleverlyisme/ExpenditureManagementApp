@@ -37,7 +37,6 @@ public class RenevueDetailFragment extends Fragment {
     private RenevueDetailViewModel mViewModel;
     private RecyclerView rcV;
     private RenevueAdapter adapter;
-    private ArrayList<Renevue> arrayList;
     private DatabaseHelper database;
     private TextView tvAdd;
     private ImageButton btnReload;
@@ -56,7 +55,6 @@ public class RenevueDetailFragment extends Fragment {
         rcV = view.findViewById(R.id.rcV_renevue_detail);
         tvAdd = view.findViewById(R.id.tv_renevue_add);
         btnReload = view.findViewById(R.id.btn_renevue_reload);
-        arrayList =new ArrayList<>();
         tvAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -73,17 +71,15 @@ public class RenevueDetailFragment extends Fragment {
 
         database = new DatabaseHelper(view.getContext());
 
-        actionGetData();
         LinearLayoutManager linearLayoutManager =new LinearLayoutManager(view.getContext(), RecyclerView.VERTICAL, false);
         rcV.setLayoutManager(linearLayoutManager);
-        adapter = new RenevueAdapter(this, arrayList);
+        adapter = new RenevueAdapter(this, list());
         rcV.setAdapter(adapter);
     }
-
-    public void actionGetData(){
+    private ArrayList<Renevue> list() {
+        ArrayList<Renevue> list = new ArrayList<>();
         Cursor cursor = database.select("revenues");
-        arrayList.clear();
-        while (cursor.moveToNext()){
+        while (cursor.moveToNext()) {
             int id = cursor.getInt(0);
             String name = cursor.getString(1);
             float price = cursor.getFloat(2);
@@ -91,10 +87,12 @@ public class RenevueDetailFragment extends Fragment {
             String date = cursor.getString(4);
             int userId = cursor.getInt(5);
             int renevueTypeId = cursor.getInt(6);
-            arrayList.add(new Renevue(id, name, price, note, date, userId, renevueTypeId));
-            adapter.notifyDataSetChanged();
+            list.add(new Renevue(id, name, price, note, date, userId, renevueTypeId));
         }
+        return list;
     }
+
+
     public void delete(int id){
         AlertDialog.Builder dialog =new AlertDialog.Builder(getActivity());
         dialog.setTitle("Xóa");
@@ -103,8 +101,7 @@ public class RenevueDetailFragment extends Fragment {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 database.delete_Renevue("revenues", id);
-                if (arrayList.size()<2)
-                    arrayList.clear();
+                adapter.setData(list());
                 adapter.notifyDataSetChanged();
             }
         });

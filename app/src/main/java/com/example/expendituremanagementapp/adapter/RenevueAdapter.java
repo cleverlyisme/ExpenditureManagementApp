@@ -21,6 +21,7 @@ import com.example.expendituremanagementapp.ui.renevue.RenevueDetailFragment;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 
 public class RenevueAdapter extends RecyclerView.Adapter<RenevueAdapter.RenevueViewAdapter>{
@@ -31,6 +32,12 @@ public class RenevueAdapter extends RecyclerView.Adapter<RenevueAdapter.RenevueV
         this.context = context;
         this.lists = lists;
     }
+    public void setData(List<Renevue> lists){
+        this.lists = lists;
+        notifyDataSetChanged();
+    }
+
+
     @NonNull
     @Override
     public RenevueViewAdapter onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
