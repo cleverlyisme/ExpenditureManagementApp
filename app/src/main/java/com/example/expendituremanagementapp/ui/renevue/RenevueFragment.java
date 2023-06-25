@@ -49,7 +49,7 @@ public class RenevueFragment extends Fragment {
             public void onConfigureTab(@NonNull TabLayout.Tab tab, int position) {
                 if (position  == 0){
                     tab.setText("Renevue Detail");
-                    tab.setIcon(R.drawable.ic_menu_camera);
+                    tab.setIcon(R.drawable.baseline_library_books_24);
                 }
                 else{
                     tab.setText("Renevue Type");

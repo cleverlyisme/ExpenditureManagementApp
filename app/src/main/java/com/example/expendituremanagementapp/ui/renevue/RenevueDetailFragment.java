@@ -2,6 +2,10 @@ package com.example.expendituremanagementapp.ui.renevue;
 
 import androidx.lifecycle.ViewModelProvider;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -15,6 +19,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.TextView;
 
 import com.example.expendituremanagementapp.R;
 import com.example.expendituremanagementapp.database.DatabaseHelper;
@@ -23,6 +30,7 @@ import com.example.expendituremanagementapp.model.Renevue;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 
 public class RenevueDetailFragment extends Fragment {
 
@@ -31,9 +39,9 @@ public class RenevueDetailFragment extends Fragment {
     private RenevueAdapter adapter;
     private ArrayList<Renevue> arrayList;
     private DatabaseHelper database;
-    public static RenevueDetailFragment newInstance() {
-        return new RenevueDetailFragment();
-    }
+    private TextView tvAdd;
+    private ImageButton btnReload;
+
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -46,39 +54,69 @@ public class RenevueDetailFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         rcV = view.findViewById(R.id.rcV_renevue_detail);
+        tvAdd = view.findViewById(R.id.tv_renevue_add);
+        btnReload = view.findViewById(R.id.btn_renevue_reload);
         arrayList =new ArrayList<>();
+        tvAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(view.getContext(), AddRenevueActivity.class);
+                startActivity(i);
+            }
+        });
+        btnReload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onViewCreated(view, savedInstanceState);
+            }
+        });
 
         database = new DatabaseHelper(view.getContext());
-        SQLiteDatabase db = database.getWritableDatabase();
-        database.onCreate(db);
-//        db.execSQL("INSERT INTO revenues VALUES(null, 'Lương', 123000, 'xin chào', date('now'), 1, 1)");
-//        db.execSQL("DELETE FROM revenues");
-//        db.execSQL("INSERT INTO revenues VALUES(null, 'Lương', 123000, 'xin chao toi la nguyen', date('now'), 1, 1)");
 
+        actionGetData();
         LinearLayoutManager linearLayoutManager =new LinearLayoutManager(view.getContext(), RecyclerView.VERTICAL, false);
         rcV.setLayoutManager(linearLayoutManager);
-        adapter = new RenevueAdapter(view.getContext(), arrayList);
+        adapter = new RenevueAdapter(this, arrayList);
         rcV.setAdapter(adapter);
-        actionGetData();
     }
 
-    private void actionGetData(){
-        SQLiteDatabase db = database.getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM revenues", null);
+    public void actionGetData(){
+        Cursor cursor = database.select("revenues");
         arrayList.clear();
         while (cursor.moveToNext()){
             int id = cursor.getInt(0);
             String name = cursor.getString(1);
             float price = cursor.getFloat(2);
             String note = cursor.getString(3);
-            LocalDate date = LocalDate.parse(cursor.getString(4));
+            String date = cursor.getString(4);
             int userId = cursor.getInt(5);
             int renevueTypeId = cursor.getInt(6);
             arrayList.add(new Renevue(id, name, price, note, date, userId, renevueTypeId));
             adapter.notifyDataSetChanged();
         }
     }
-
+    public void delete(int id){
+        AlertDialog.Builder dialog =new AlertDialog.Builder(getActivity());
+        dialog.setTitle("Xóa");
+        dialog.setMessage("Bạn có chắc muốn xóa khoản thu không?");
+        dialog.setPositiveButton("Có", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                database.delete_Renevue("revenues", id);
+                if (arrayList.size()<2)
+                    arrayList.clear();
+                adapter.notifyDataSetChanged();
+            }
+        });
+        dialog.setNegativeButton("Không", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+        dialog.create().show();
+        return;
+    }
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);

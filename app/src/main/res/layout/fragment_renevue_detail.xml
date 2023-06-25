@@ -27,14 +27,12 @@
             android:text="Số tiền"
             android:textSize="20dp"
             android:layout_centerHorizontal="true"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
             android:layout_weight="1"
             android:textColor="#000"/>
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Ghi chú"
+            android:text="Thời gian"
             android:textSize="20dp"
             android:layout_alignParentEnd="true"
             android:paddingEnd="10dp"
@@ -42,11 +40,35 @@
             android:textColor="#000"/>
     </LinearLayout>
 
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rcV_renevue_detail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="8dp"
+        android:paddingEnd="20dp">
+        <TextView
+            android:id="@+id/tv_renevue_add"
+            android:layout_width="wrap_content"
+            android:layout_height="25dp"
+            android:text="Thêm mới"
+            android:textSize="18sp"
+            android:textColor="#FF0000"
+            android:drawableStart="@drawable/ic_action_add"
+            android:drawablePadding="8dp"
+            android:layout_centerVertical="true"/>
+        <ImageButton
+            android:id="@+id/btn_renevue_reload"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/baseline_refresh_24"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true" />
+    </RelativeLayout>
+
 
 </LinearLayout>

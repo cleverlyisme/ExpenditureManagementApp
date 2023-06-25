@@ -4,6 +4,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -11,9 +12,13 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.expendituremanagementapp.R;
+import com.example.expendituremanagementapp.database.DatabaseHelper;
+import com.example.expendituremanagementapp.model.Renevue;
 import com.example.expendituremanagementapp.model.RenevueType;
+import com.example.expendituremanagementapp.ui.renevue.RenevueDetailViewModel;
 import com.example.expendituremanagementapp.ui.renevue.RenevueTypeFragment;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public class RenevueTypeAdapter extends RecyclerView.Adapter<RenevueTypeAdapter.RenevueTypeViewAdapter>{
@@ -42,9 +47,9 @@ public class RenevueTypeAdapter extends RecyclerView.Adapter<RenevueTypeAdapter.
         holder.delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int id = renevueType.getId();
-                if(id == 1 || id == 2){
-                    Toast.makeText(context.getActivity(), "Loại thưởng này không thể xóa!", Toast.LENGTH_SHORT).show();
+                int id = renevueType.getUserId();
+                if(id == 1){
+                    Toast.makeText(v.getContext(), "Loại thưởng này không thể xóa!", Toast.LENGTH_SHORT).show();
                 }
                 else
                     context.delete(renevueType.getName(), renevueType.getId());
@@ -53,9 +58,9 @@ public class RenevueTypeAdapter extends RecyclerView.Adapter<RenevueTypeAdapter.
         holder.edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int id = renevueType.getId();
-                if(id == 1 || id == 2){
-                    Toast.makeText(context.getActivity(), "Loại thưởng này không thể sửa!", Toast.LENGTH_SHORT).show();
+                int id = renevueType.getUserId();
+                if(id == 1){
+                    Toast.makeText(v.getContext(), "Loại thưởng này không thể sửa!", Toast.LENGTH_SHORT).show();
                 }
                 else
                     context.edit(renevueType.getName(), renevueType.getId());
@@ -75,12 +80,14 @@ public class RenevueTypeAdapter extends RecyclerView.Adapter<RenevueTypeAdapter.
     public class RenevueTypeViewAdapter extends RecyclerView.ViewHolder {
         private TextView name;
         private ImageView edit, delete;
+        private RelativeLayout layout;
         public RenevueTypeViewAdapter(@NonNull View itemView) {
             super(itemView);
 
             name = itemView.findViewById(R.id.renevue_type_item_name);
             edit = itemView.findViewById(R.id.renevue_type_item_edit);
             delete = itemView.findViewById(R.id.renevue_type_item_delete);
+            layout = itemView.findViewById(R.id.renevue_type_item_layout);
         }
     }
 }

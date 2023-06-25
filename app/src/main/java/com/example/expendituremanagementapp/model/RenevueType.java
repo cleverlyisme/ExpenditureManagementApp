@@ -18,6 +18,10 @@ public class RenevueType {
         this.userId = userId;
         this.name = name;
     }
+    public RenevueType(String name, int userId) {
+        this.userId = userId;
+        this.name = name;
+    }
 
     public int getId() {
         return id;

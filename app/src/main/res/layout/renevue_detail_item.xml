@@ -2,43 +2,33 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
-    <LinearLayout
+    <RelativeLayout
+        android:id="@+id/renevue_item_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:orientation="horizontal"
-        android:weightSum="4">
+        android:padding="10dp">
         <TextView
             android:id="@+id/revenue_detail_name"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="nguyen"
             android:textSize="18dp"
-            android:layout_weight="1"/>
+            android:layout_centerVertical="true"/>
         <TextView
             android:id="@+id/revenue_detail_price"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="123000"
             android:textSize="18dp"
-            android:layout_weight="1"
-            android:layout_marginStart="10dp"/>
-        <TextView
-            android:id="@+id/revenue_detail_note"
-            android:layout_width="0dp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_margin="10dp"/>
+        <ImageButton
+            android:id="@+id/btn_renevue_item_delete"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="xin chao"
-            android:textSize="18dp"
-            android:layout_weight="1"
-            android:layout_marginStart="10dp"/>
-        <TextView
-            android:id="@+id/revenue_detail_date"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="date"
-            android:textSize="18dp"
-            android:layout_weight="1"
-            android:layout_marginStart="10dp"/>
-    </LinearLayout>
+            android:src="@drawable/ic_action_delete"
+            android:layout_alignParentEnd="true"/>
+    </RelativeLayout>
 
 </androidx.cardview.widget.CardView>
