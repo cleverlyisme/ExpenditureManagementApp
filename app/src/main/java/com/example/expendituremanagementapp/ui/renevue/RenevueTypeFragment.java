@@ -40,7 +40,7 @@ public class RenevueTypeFragment extends Fragment {
     private TextView tvAdd;
     private DatabaseHelper database;
     //truyền serID vào đây
-    private static int userId = 2;
+    private int userId = 2;
 
     public static RenevueTypeFragment newInstance() {
         return new RenevueTypeFragment();

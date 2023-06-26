@@ -54,7 +54,7 @@ public class RenevueDetailFragment extends Fragment {
     private RenevueAdapter adapter;
     private DatabaseHelper database;
     private TextView tvAdd, tvTotal;
-    private static int userId = 2;
+    private int userId = 2;
 
 
     @Override
