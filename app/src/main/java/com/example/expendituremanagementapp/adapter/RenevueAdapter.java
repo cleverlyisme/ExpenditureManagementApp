@@ -91,7 +91,7 @@ public class RenevueAdapter extends RecyclerView.Adapter<RenevueAdapter.RenevueV
 
     public class RenevueViewAdapter extends RecyclerView.ViewHolder{
         private TextView name, note, price;
-        private RelativeLayout layout;
+        private LinearLayout layout;
         private ImageButton btn;
         public RenevueViewAdapter(@NonNull View itemView) {
             super(itemView);

@@ -32,7 +32,7 @@ public class AddRenevueActivity extends AppCompatActivity {
     private EditText edtPrice, edtNote, edtDate;
     private Button btnAdd, btnCancel;
     //truyền serID vào đây
-    private static int userId = 1;
+    private static int userId = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

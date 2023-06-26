@@ -12,6 +12,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -39,7 +40,7 @@ public class RenevueTypeFragment extends Fragment {
     private TextView tvAdd;
     private DatabaseHelper database;
     //truyền serID vào đây
-    private static int userId = 1;
+    private static int userId = 2;
 
     public static RenevueTypeFragment newInstance() {
         return new RenevueTypeFragment();
@@ -92,6 +93,9 @@ public class RenevueTypeFragment extends Fragment {
             }
         });
 
+        RecyclerView.ItemDecoration decoration = new DividerItemDecoration(view.getContext(), DividerItemDecoration.VERTICAL);
+        rcV.addItemDecoration(decoration);
+
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(view.getContext(), RecyclerView.VERTICAL, false);
         rcV.setLayoutManager(linearLayoutManager);
         adapter = new RenevueTypeAdapter(this, getList());
@@ -99,13 +103,22 @@ public class RenevueTypeFragment extends Fragment {
     }
 
     private ArrayList<RenevueType> getList(){
-        Cursor cursor = database.select("revenue_types", userId);
         ArrayList<RenevueType> arrayList = new ArrayList<>();
-        while (cursor.moveToNext()){
-            int id = cursor.getInt(0);
-            String name = cursor.getString(1);
-            int userId = cursor.getInt(2);
+        Cursor cursor1 = database.select("revenue_types", 1);
+        while (cursor1.moveToNext()){
+            int id = cursor1.getInt(0);
+            String name = cursor1.getString(1);
+            int userId = cursor1.getInt(2);
             arrayList.add(new RenevueType(id, userId, name));
+        }
+        if(userId != 1){
+            Cursor cursor = database.select("revenue_types", userId);
+            while (cursor.moveToNext()){
+                int id = cursor.getInt(0);
+                String name = cursor.getString(1);
+                int userId = cursor.getInt(2);
+                arrayList.add(new RenevueType(id, userId, name));
+            }
         }
         return arrayList;
     }
@@ -174,6 +187,11 @@ public class RenevueTypeFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_renevue_type, container, false);
+    }
+    public boolean checkUserId(int id){
+        if(id == userId)
+            return true;
+        return false;
     }
 
     @Override

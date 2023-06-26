@@ -52,7 +52,7 @@ public class RenevueTypeAdapter extends RecyclerView.Adapter<RenevueTypeAdapter.
             @Override
             public void onClick(View v) {
                 int id = renevueType.getUserId();
-                if(id == 1){
+                if(id == 1 && !context.checkUserId(id)){
                     Toast.makeText(v.getContext(), "Loại thưởng này không thể xóa!", Toast.LENGTH_SHORT).show();
                 }
                 else
@@ -63,7 +63,7 @@ public class RenevueTypeAdapter extends RecyclerView.Adapter<RenevueTypeAdapter.
             @Override
             public void onClick(View v) {
                 int id = renevueType.getUserId();
-                if(id == 1){
+                if(id == 1 && !context.checkUserId(id)){
                     Toast.makeText(v.getContext(), "Loại thưởng này không thể sửa!", Toast.LENGTH_SHORT).show();
                 }
                 else

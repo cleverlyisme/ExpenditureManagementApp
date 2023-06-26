@@ -13,6 +13,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -41,7 +42,7 @@ public class RenevueDetailFragment extends Fragment {
     private TextView tvAdd;
     private ImageButton btnReload;
     //truyền serID vào đây
-    private static int userID = 1;
+    private static int userID = 2;
 
 
     @Override
@@ -73,6 +74,9 @@ public class RenevueDetailFragment extends Fragment {
         });
 
         database = new DatabaseHelper(view.getContext());
+
+        RecyclerView.ItemDecoration decoration = new DividerItemDecoration(view.getContext(), DividerItemDecoration.VERTICAL);
+        rcV.addItemDecoration(decoration);
 
         LinearLayoutManager linearLayoutManager =new LinearLayoutManager(view.getContext(), RecyclerView.VERTICAL, false);
         rcV.setLayoutManager(linearLayoutManager);
@@ -114,6 +118,15 @@ public class RenevueDetailFragment extends Fragment {
         });
         dialog.create().show();
         return;
+    }
+    private float getPriceTotal(){
+        float total = 0;
+        Cursor cursor = database.select("revenues", userID);
+        while (cursor.moveToNext()) {
+            float price = cursor.getFloat(2);
+            total += price;
+        }
+        return total;
     }
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
