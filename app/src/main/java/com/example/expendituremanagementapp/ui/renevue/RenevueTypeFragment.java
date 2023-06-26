@@ -50,7 +50,6 @@ public class RenevueTypeFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         rcV = view.findViewById(R.id.rcV_renevue_type);
-//        adapter = new RenevueTypeAdapter(this, arrayList);
         tvAdd = view.findViewById(R.id.tv_renevue_type_add);
 
         database = new DatabaseHelper(view.getContext());
@@ -104,7 +103,7 @@ public class RenevueTypeFragment extends Fragment {
 
     private ArrayList<RenevueType> getList(){
         ArrayList<RenevueType> arrayList = new ArrayList<>();
-        Cursor cursor1 = database.select("revenue_types", 1);
+        Cursor cursor1 = database.select("revenue_types", userId);
         while (cursor1.moveToNext()){
             int id = cursor1.getInt(0);
             String name = cursor1.getString(1);
@@ -191,5 +190,4 @@ public class RenevueTypeFragment extends Fragment {
         mViewModel = new ViewModelProvider(this).get(RenevueTypeViewModel.class);
         // TODO: Use the ViewModel
     }
-
 }
