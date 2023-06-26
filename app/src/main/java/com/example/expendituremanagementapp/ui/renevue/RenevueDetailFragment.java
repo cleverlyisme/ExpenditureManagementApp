@@ -40,6 +40,8 @@ public class RenevueDetailFragment extends Fragment {
     private DatabaseHelper database;
     private TextView tvAdd;
     private ImageButton btnReload;
+    //truyền serID vào đây
+    private static int userID = 1;
 
 
     @Override
@@ -65,7 +67,8 @@ public class RenevueDetailFragment extends Fragment {
         btnReload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onViewCreated(view, savedInstanceState);
+                adapter.setData(list());
+                adapter.notifyDataSetChanged();
             }
         });
 
@@ -78,7 +81,7 @@ public class RenevueDetailFragment extends Fragment {
     }
     private ArrayList<Renevue> list() {
         ArrayList<Renevue> list = new ArrayList<>();
-        Cursor cursor = database.select("revenues");
+        Cursor cursor = database.select("revenues", userID);
         while (cursor.moveToNext()) {
             int id = cursor.getInt(0);
             String name = cursor.getString(1);
@@ -91,8 +94,6 @@ public class RenevueDetailFragment extends Fragment {
         }
         return list;
     }
-
-
     public void delete(int id){
         AlertDialog.Builder dialog =new AlertDialog.Builder(getActivity());
         dialog.setTitle("Xóa");

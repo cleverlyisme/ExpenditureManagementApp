@@ -38,6 +38,8 @@ public class RenevueTypeFragment extends Fragment {
     private RenevueTypeAdapter adapter;
     private TextView tvAdd;
     private DatabaseHelper database;
+    //truyền serID vào đây
+    private static int userId = 1;
 
     public static RenevueTypeFragment newInstance() {
         return new RenevueTypeFragment();
@@ -51,12 +53,6 @@ public class RenevueTypeFragment extends Fragment {
         tvAdd = view.findViewById(R.id.tv_renevue_type_add);
 
         database = new DatabaseHelper(view.getContext());
-        SQLiteDatabase db = database.getWritableDatabase();
-
-        if (check(1))
-            database.insert_Renevue_Type("Lương", 1);
-        if (check(2))
-            database.insert_Renevue_Type("Thu nhập khác", 1);
 
         tvAdd.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -86,7 +82,7 @@ public class RenevueTypeFragment extends Fragment {
                             return;
                         }
                         Toast.makeText(view.getContext(), "Bạn đã thêm thành công!", Toast.LENGTH_SHORT).show();
-                        database.insert_Renevue_Type(name, 2);
+                        database.insert_Renevue_Type(name, userId);
                         adapter.setData(getList());
                         adapter.notifyDataSetChanged();
                         dialog.dismiss();
@@ -103,7 +99,7 @@ public class RenevueTypeFragment extends Fragment {
     }
 
     private ArrayList<RenevueType> getList(){
-        Cursor cursor = database.select("revenue_types");
+        Cursor cursor = database.select("revenue_types", userId);
         ArrayList<RenevueType> arrayList = new ArrayList<>();
         while (cursor.moveToNext()){
             int id = cursor.getInt(0);
@@ -174,17 +170,6 @@ public class RenevueTypeFragment extends Fragment {
         });
         dialog.show();
     }
-
-    private boolean check(int i){
-        Cursor cursor = database.select("revenue_types");
-        while (cursor.moveToNext()){
-            int id = cursor.getInt(0);
-            if ( i == id)
-                return false;
-        }
-        return true;
-    }
-
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {

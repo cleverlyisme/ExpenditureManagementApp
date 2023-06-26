@@ -65,8 +65,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(createRevenuesTableQuery);
     }
 
-    public Cursor select(String table){
-        String select = "SELECT * FROM "+table+"";
+    public Cursor select(String table, int userID){
+        String select = "SELECT * FROM "+table+" WHERE userId = "+userID+"";
         SQLiteDatabase db = getReadableDatabase();
         return db.rawQuery(select, null);
     }

@@ -31,6 +31,8 @@ public class AddRenevueActivity extends AppCompatActivity {
     private AutoCompleteTextView auto_name;
     private EditText edtPrice, edtNote, edtDate;
     private Button btnAdd, btnCancel;
+    //truyền serID vào đây
+    private static int userId = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +49,7 @@ public class AddRenevueActivity extends AppCompatActivity {
 
         database = new DatabaseHelper(this);
         //Hiện tên
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, options());
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, optionName());
         auto_name.setAdapter(adapter);
         auto_name.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -98,7 +100,7 @@ public class AddRenevueActivity extends AppCompatActivity {
                 }
                 else{
                     float price = Float.parseFloat(edtPrice.getText().toString().trim());
-                    Renevue renevue = new Renevue(name, price, note, date, 2, 2);
+                    Renevue renevue = new Renevue(name, price, note, date, getUserID(name), getTypeID(name));
                     database.insert_Renevue(renevue);
                     Toast.makeText(AddRenevueActivity.this, "Bạn đã thêm thành công!", Toast.LENGTH_SHORT).show();
                     finish();
@@ -113,15 +115,34 @@ public class AddRenevueActivity extends AppCompatActivity {
             }
         });
     }
-
-    private String[] options(){
+    private String[] optionName(){
         String[] option = new String[0];
-        Cursor cursor = database.select("revenue_types");
+        Cursor cursor = database.select("revenue_types", userId);
         while (cursor.moveToNext()){
             String name = cursor.getString(1);
             option = Arrays.copyOf(option, option.length + 1);
             option[option.length -1] = name;
         }
         return option;
+    }
+    private int getTypeID(String name){
+        Cursor cursor = database.select("revenue_types", userId);
+        while (cursor.moveToNext()){
+            String typeName = cursor.getString(1);
+            int id = cursor.getInt(0);
+            if (name.equals(typeName))
+                return id;
+        }
+        return -1;
+    }
+    private int getUserID(String name){
+        Cursor cursor = database.select("revenue_types", userId);
+        while (cursor.moveToNext()){
+            String typeName = cursor.getString(1);
+            int id = cursor.getInt(2);
+            if (name.equals(typeName))
+                return id;
+        }
+        return -1;
     }
 }
