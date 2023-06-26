@@ -42,32 +42,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"/>
-    <RelativeLayout
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/tv_renevue_add"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingTop="8dp"
-        android:paddingBottom="8dp"
-        android:paddingEnd="10dp"
-        android:layout_below="@+id/rcV_renevue_detail">
-        <TextView
-            android:id="@+id/tv_renevue_add"
-            android:layout_width="wrap_content"
-            android:layout_height="25dp"
-            android:text="Thêm mới"
-            android:textSize="18sp"
-            android:textColor="#FF0000"
-            android:drawableStart="@drawable/ic_action_add"
-            android:drawablePadding="8dp"
-            android:layout_centerVertical="true"/>
-        <ImageButton
-            android:id="@+id/btn_renevue_reload"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/baseline_refresh_24"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true" />
-    </RelativeLayout>
+        android:text="Thêm mới"
+        android:textSize="18sp"
+        android:textColor="#FF0000"
+        android:drawableStart="@drawable/ic_action_add"
+        android:drawablePadding="8dp"
+        android:padding="8dp"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/rcV_renevue_detail"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -88,7 +74,7 @@
             android:layout_height="wrap_content"
             android:textColor="#FF0000"
             android:textSize="20dp"
-            android:text="00000000"
+            android:text="0000"
             android:layout_weight="1"/>
     </LinearLayout>
 

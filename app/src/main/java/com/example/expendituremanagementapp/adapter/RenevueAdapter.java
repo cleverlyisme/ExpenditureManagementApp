@@ -67,7 +67,7 @@ public class RenevueAdapter extends RecyclerView.Adapter<RenevueAdapter.RenevueV
                 }
 
                 AlertDialog.Builder buider = new AlertDialog.Builder(v.getContext());
-                buider.setTitle("Ghi chú");
+                buider.setTitle("Thông tin");
                 buider.setMessage("Tên: "+renevue.getName()+"\nSố tiền: "+renevue.getPrice()+"\nGhi chú: "+renevue.getNote()+"\nThời gian: "+renevue.getDate());
                 buider.setPositiveButton("Đóng", new DialogInterface.OnClickListener() {
                     @Override
@@ -79,7 +79,6 @@ public class RenevueAdapter extends RecyclerView.Adapter<RenevueAdapter.RenevueV
             }
         });
     }
-
     @Override
     public int getItemCount() {
         if (lists != null)

@@ -111,15 +111,6 @@ public class RenevueTypeFragment extends Fragment {
             int userId = cursor1.getInt(2);
             arrayList.add(new RenevueType(id, userId, name));
         }
-        if(userId != 1){
-            Cursor cursor = database.select("revenue_types", userId);
-            while (cursor.moveToNext()){
-                int id = cursor.getInt(0);
-                String name = cursor.getString(1);
-                int userId = cursor.getInt(2);
-                arrayList.add(new RenevueType(id, userId, name));
-            }
-        }
         return arrayList;
     }
 

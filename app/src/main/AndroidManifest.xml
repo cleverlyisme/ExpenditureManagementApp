@@ -13,9 +13,6 @@
         android:theme="@style/Theme.ExpenditureManagementApp"
         tools:targetApi="31">
         <activity
-            android:name=".ui.renevue.AddRenevueActivity"
-            android:exported="false" />
-        <activity
             android:name=".MainActivity"
             android:exported="true"
             android:label="@string/app_name"
