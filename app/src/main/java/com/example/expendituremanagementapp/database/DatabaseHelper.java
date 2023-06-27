@@ -5,6 +5,9 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
+
 import com.example.expendituremanagementapp.model.Renevue;
 import com.example.expendituremanagementapp.model.RenevueType;
 
@@ -95,6 +98,22 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         String update = "UPDATE revenues SET name = '"+renevue.getName()+"', price = "+renevue.getPrice()+", note = '"+renevue.getNote()+"', date = '"+LocalDate.parse(renevue.getDate())+"' ";
         SQLiteDatabase db = getWritableDatabase();
         db.execSQL(update);
+    }
+    public LiveData<Float> getTotalRenevue() {
+        SQLiteDatabase db = getReadableDatabase();
+
+        MutableLiveData<Float> totalRevenueLiveData = new MutableLiveData<>();
+
+        Cursor cursor = db.rawQuery("SELECT SUM(price) FROM revenues", null);
+        float sum = 0;
+
+        if (cursor.moveToFirst()) {
+            sum = cursor.getFloat(0);
+        }
+
+        totalRevenueLiveData.setValue(sum);
+
+        return totalRevenueLiveData;
     }
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
