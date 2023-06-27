@@ -1,5 +1,13 @@
 package com.example.expendituremanagementapp.model;
 
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
+
+import com.example.expendituremanagementapp.database.DatabaseHelper;
+
 import java.time.LocalDate;
 
 public class Renevue {
@@ -85,5 +93,20 @@ public class Renevue {
 
     public void setDate(String date) {
         this.date = date;
+    }
+
+    public static LiveData<Float> getTotalRenevue() {
+        MutableLiveData<Float> totalRevenueLiveData = new MutableLiveData<>();
+
+        Cursor cursor = db.rawQuery("SELECT SUM(price) FROM revenues", null);
+        float sum = 0;
+
+        if (cursor.moveToFirst()) {
+            sum = cursor.getFloat(0);
+        }
+
+        totalRevenueLiveData.setValue(sum);
+
+        return totalRevenueLiveData;
     }
 }
