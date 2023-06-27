@@ -11,9 +11,6 @@ import com.example.expendituremanagementapp.database.DatabaseHelper;
 import java.sql.Date;
 
 public class Expense {
-    private static DatabaseHelper dbHelper;
-    private static SQLiteDatabase db = dbHelper.getWritableDatabase();
-
     private int id = -1, expenseTypeId=-1, userId = -1;
     private String name, note;
     private float price;
@@ -89,23 +86,5 @@ public class Expense {
 
     public String getDate() {
         return date;
-    }
-
-    public static LiveData<Float> getTotalExpense() {
-        MutableLiveData<Float> totalRevenueLiveData = new MutableLiveData<>();
-
-        Cursor cursor = db.rawQuery("SELECT SUM(price) FROM expenses", null);
-        float sum = 0;
-
-        if (cursor.moveToFirst()) {
-            sum = cursor.getFloat(0);
-        }
-
-        cursor.close();
-        db.close();
-
-        totalRevenueLiveData.setValue(sum);
-
-        return totalRevenueLiveData;
     }
 }

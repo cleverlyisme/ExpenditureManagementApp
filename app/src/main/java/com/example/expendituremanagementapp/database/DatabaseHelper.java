@@ -115,6 +115,25 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         return totalRevenueLiveData;
     }
+    public LiveData<Float> getTotalExpense() {
+        SQLiteDatabase db = getReadableDatabase();
+
+        MutableLiveData<Float> totalRevenueLiveData = new MutableLiveData<>();
+
+        Cursor cursor = db.rawQuery("SELECT SUM(price) FROM expenses", null);
+        float sum = 0;
+
+        if (cursor.moveToFirst()) {
+            sum = cursor.getFloat(0);
+        }
+
+        cursor.close();
+        db.close();
+
+        totalRevenueLiveData.setValue(sum);
+
+        return totalRevenueLiveData;
+    }
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         // Perform any necessary upgrades or migrations
