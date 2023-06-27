@@ -91,10 +91,6 @@ public class Renevue {
         return date;
     }
 
-    public void setDate(String date) {
-        this.date = date;
-    }
-
     public static LiveData<Float> getTotalRenevue() {
         MutableLiveData<Float> totalRevenueLiveData = new MutableLiveData<>();
 

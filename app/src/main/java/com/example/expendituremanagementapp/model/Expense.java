@@ -17,16 +17,26 @@ public class Expense {
     private int id = -1, expenseTypeId=-1, userId = -1;
     private String name, note;
     private float price;
-    private Date date;
+    private String date;
 
     public Expense() {}
 
-    public Expense(int id, int userId, String name, String note, float price) {
+    public Expense(int id, String name, float price, String note, String date, int userId, int expenseTypeId) {
         this.id = id;
-        this.userId = userId;
         this.name = name;
         this.note = note;
         this.price = price;
+        this.date = date;
+        this.expenseTypeId = expenseTypeId;
+        this.userId = userId;
+    }
+    public Expense(String name, float price, String note, String date, int userId, int expenseTypeId) {
+        this.name = name;
+        this.note = note;
+        this.price = price;
+        this.date = date;
+        this.expenseTypeId = expenseTypeId;
+        this.userId = userId;
     }
 
     public int getId() {
@@ -77,12 +87,8 @@ public class Expense {
         this.expenseTypeId = expenseTypeId;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
     }
 
     public static LiveData<Float> getTotalExpense() {

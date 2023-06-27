@@ -46,6 +46,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 "name TEXT, " +
                 "price REAL, " +
                 "note TEXT, " +
+                "date DATE DEFAULT CURRENT_DATE, " +
                 "userId INTEGER NOT NULL, " +
                 "expenseTypeId INTEGER NOT NULL, " +
                 "FOREIGN KEY (userId) REFERENCES users(id) ON DELETE CASCADE,"+
