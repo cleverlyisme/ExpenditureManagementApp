@@ -10,8 +10,10 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.example.expendituremanagementapp.model.Renevue;
 import com.example.expendituremanagementapp.model.RenevueType;
+import com.example.expendituremanagementapp.model.RenevueTypeStatistic;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "budget_management.db";
@@ -99,46 +101,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = getWritableDatabase();
         db.execSQL(update);
     }
-    public LiveData<Float> getTotalRenevue() {
-        SQLiteDatabase db = getReadableDatabase();
-
-        MutableLiveData<Float> totalRevenueLiveData = new MutableLiveData<>();
-
-        Cursor cursor = db.rawQuery("SELECT SUM(price) FROM revenues", null);
-        float sum = 0;
-
-        if (cursor.moveToFirst()) {
-            sum = cursor.getFloat(0);
-        }
-
-        totalRevenueLiveData.setValue(sum);
-
-        return totalRevenueLiveData;
-    }
-    public LiveData<Float> getTotalExpense() {
-        SQLiteDatabase db = getReadableDatabase();
-
-        MutableLiveData<Float> totalRevenueLiveData = new MutableLiveData<>();
-
-        Cursor cursor = db.rawQuery("SELECT SUM(price) FROM expenses", null);
-        float sum = 0;
-
-        if (cursor.moveToFirst()) {
-            sum = cursor.getFloat(0);
-        }
-
-        cursor.close();
-        db.close();
-
-        totalRevenueLiveData.setValue(sum);
-
-        return totalRevenueLiveData;
-    }
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         // Perform any necessary upgrades or migrations
-        if (oldVersion < 2) {
-            // Upgrade database from version 1 to version 2
+        if (oldVersion < 1) {
+            // Upgrade database from old version to version 1
         }
         onCreate(db);
     }

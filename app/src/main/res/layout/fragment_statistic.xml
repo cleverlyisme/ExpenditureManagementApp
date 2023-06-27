@@ -34,6 +34,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
+                android:cursorVisible="false"
+                android:focusable="false"
                 android:ems="10"
                 android:inputType="number"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -86,6 +88,8 @@
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
                 android:ems="10"
+                android:cursorVisible="false"
+                android:focusable="false"
                 android:inputType="number"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -101,7 +105,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/etTotalExpense" />
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerView"
+                android:id="@+id/rvExpenseType"
                 android:layout_width="409dp"
                 android:layout_height="268dp"
                 android:layout_marginStart="16dp"
