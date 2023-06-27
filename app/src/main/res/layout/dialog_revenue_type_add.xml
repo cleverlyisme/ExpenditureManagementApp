@@ -8,15 +8,15 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Thêm loại thu"
+        android:text="Add revenue type"
         android:textSize="25sp"
         android:textColor="#E91E63"
         android:gravity="center"/>
     <EditText
-        android:id="@+id/edt_renevue_type_add_name"
+        android:id="@+id/edt_revenue_type_add_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Nhập tên loại thu"
+        android:hint="Enter revenue type"
         android:textSize="18sp"
         android:layout_marginTop="15dp"/>
     <LinearLayout
@@ -26,19 +26,19 @@
         android:weightSum="2"
         android:layout_marginTop="15dp">
         <Button
-            android:id="@+id/btn_renevue_type_add"
+            android:id="@+id/btn_revenue_type_add"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Thêm"
+            android:text="Add"
             android:textSize="18sp"
             android:layout_margin="10dp"/>
         <Button
-            android:id="@+id/btn_renevue_type_add_cancel"
+            android:id="@+id/btn_revenue_type_add_cancel"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Hủy"
+            android:text="Cancel"
             android:textSize="18sp"
             android:layout_margin="10dp"/>
     </LinearLayout>

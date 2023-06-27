@@ -1,11 +1,11 @@
 package com.example.expendituremanagementapp.model;
 
-public class RenevueTypeStatistic {
+public class RevenueTypeStatistic {
     private int id;
     private String name;
     private Float total;
 
-    public RenevueTypeStatistic(int id, String name, Float total) {
+    public RevenueTypeStatistic(int id, String name, Float total) {
         this.id = id;
         this.name = name;
         this.total = total;

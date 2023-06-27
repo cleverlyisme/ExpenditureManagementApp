@@ -16,7 +16,7 @@
         android:layout_width="match_parent"
         android:layout_height="25dp"
         android:layout_below="@+id/rcV_expense_type"
-        android:text="Thêm mới"
+        android:text="Add"
         android:textSize="18sp"
         android:textColor="#FF0000"
         android:drawableStart="@drawable/ic_action_add"

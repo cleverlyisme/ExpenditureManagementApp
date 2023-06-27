@@ -48,7 +48,7 @@ public class ExpenseTypeAdapter extends RecyclerView.Adapter<ExpenseTypeAdapter.
             public void onClick(View v) {
                 int id = expenseType.getId();
                 if(id == 1 || id == 2){
-                    Toast.makeText(context.getActivity(), "Loại thưởng này không thể xóa!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context.getActivity(), "This type can't be deleted!", Toast.LENGTH_SHORT).show();
                 }
                 else
                     context.delete(expenseType.getName(), expenseType.getId());
@@ -59,7 +59,7 @@ public class ExpenseTypeAdapter extends RecyclerView.Adapter<ExpenseTypeAdapter.
             public void onClick(View v) {
                 int id = expenseType.getId();
                 if(id == 1 || id == 2){
-                    Toast.makeText(context.getActivity(), "Loại thưởng này không thể sửa!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context.getActivity(), "This type can't be edited!", Toast.LENGTH_SHORT).show();
                 }
                 else
                     context.edit(expenseType.getName(), expenseType.getId());

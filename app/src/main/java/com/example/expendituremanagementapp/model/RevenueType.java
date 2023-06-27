@@ -1,21 +1,17 @@
 package com.example.expendituremanagementapp.model;
 
-import android.database.sqlite.SQLiteDatabase;
-
-import com.example.expendituremanagementapp.database.DatabaseHelper;
-
-public class RenevueType {
+public class RevenueType {
     private int id = -1, userId = -1;
     private String name;
 
-    public RenevueType() {}
+    public RevenueType() {}
 
-    public RenevueType(int id, int userId, String name) {
+    public RevenueType(int id, int userId, String name) {
         this.id = id;
         this.userId = userId;
         this.name = name;
     }
-    public RenevueType(int id, String name) {
+    public RevenueType(int id, String name) {
         this.id = id;
         this.name = name;
     }

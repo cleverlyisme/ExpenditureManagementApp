@@ -13,9 +13,9 @@
             android:icon="@drawable/ic_menu_slideshow"
             android:title="Expenses" />
         <item
-            android:id="@+id/nav_renevue"
+            android:id="@+id/nav_revenue"
             android:icon="@drawable/ic_menu_slideshow"
-            android:title="Renevues" />
+            android:title="Revenues" />
         <item
             android:id="@+id/nav_plan"
             android:icon="@drawable/ic_menu_slideshow"

@@ -1,15 +1,12 @@
-package com.example.expendituremanagementapp.ui.renevue;
+package com.example.expendituremanagementapp.ui.revenue;
 
 import androidx.lifecycle.ViewModelProvider;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
-import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -28,15 +25,14 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.expendituremanagementapp.R;
 import com.example.expendituremanagementapp.database.DatabaseHelper;
-import com.example.expendituremanagementapp.adapter.RenevueAdapter;
-import com.example.expendituremanagementapp.model.Renevue;
+import com.example.expendituremanagementapp.adapter.RevenueAdapter;
+import com.example.expendituremanagementapp.model.Revenue;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -44,14 +40,13 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
-import java.util.List;
 import java.util.Locale;
 
-public class RenevueDetailFragment extends Fragment {
+public class RevenueDetailFragment extends Fragment {
 
-    private RenevueDetailViewModel mViewModel;
+    private RevenueDetailViewModel mViewModel;
     private RecyclerView rcV;
-    private RenevueAdapter adapter;
+    private RevenueAdapter adapter;
     private DatabaseHelper database;
     private TextView tvAdd, tvTotal;
     private int userId = 1;
@@ -60,32 +55,32 @@ public class RenevueDetailFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_renevue_detail, container, false);
+        return inflater.inflate(R.layout.fragment_revenue_detail, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        rcV = view.findViewById(R.id.rcV_renevue_detail);
-        tvAdd = view.findViewById(R.id.tv_renevue_add);
-        tvTotal = view.findViewById(R.id.tv_renevue_total);
+        rcV = view.findViewById(R.id.rcV_revenue_detail);
+        tvAdd = view.findViewById(R.id.tv_revenue_add);
+        tvTotal = view.findViewById(R.id.tv_revenue_total);
         database = new DatabaseHelper(view.getContext());
         tvAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Dialog dialog = new Dialog(view.getContext());
-                dialog.setContentView(R.layout.dialog_renevue_add);
+                dialog.setContentView(R.layout.dialog_revenue_add);
                 Window window = dialog.getWindow();
                 if(window != null){
                     window.setLayout(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
                 }
-                AutoCompleteTextView auto_name = dialog.findViewById(R.id.auto_renevue_add_name);
-                EditText edtPrice = dialog.findViewById(R.id.edt_renevue_add_price);
-                EditText edtNote = dialog.findViewById(R.id.edt_renevue_add_note);
-                EditText edtDate = dialog.findViewById(R.id.edt_renevue_add_date);
-                Button btnAdd = dialog.findViewById(R.id.btn_renevue_add);
-                Button btnCancel = dialog.findViewById(R.id.btn_renevue_add_cancel);
+                AutoCompleteTextView auto_name = dialog.findViewById(R.id.auto_revenue_add_name);
+                EditText edtPrice = dialog.findViewById(R.id.edt_revenue_add_price);
+                EditText edtNote = dialog.findViewById(R.id.edt_revenue_add_note);
+                EditText edtDate = dialog.findViewById(R.id.edt_revenue_add_date);
+                Button btnAdd = dialog.findViewById(R.id.btn_revenue_add);
+                Button btnCancel = dialog.findViewById(R.id.btn_revenue_add_cancel);
 
                 ArrayAdapter<String> adapter1 = new ArrayAdapter<String>(view.getContext(), android.R.layout.simple_dropdown_item_1line, optionName());
                 auto_name.setAdapter(adapter1);
@@ -135,13 +130,13 @@ public class RenevueDetailFragment extends Fragment {
                         String note = edtNote.getText().toString().trim();
                         String date = edtDate.getText().toString().trim();
                         if(name.isEmpty() || edtPrice.getText().toString().trim().isEmpty()){
-                            Toast.makeText(view.getContext(), "Bạn phải nhập đầy đủ dữ liệu!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(view.getContext(), "You must enter full data!", Toast.LENGTH_SHORT).show();
                         }
                         else{
                             float price = Float.parseFloat(edtPrice.getText().toString().trim());
-                            Renevue renevue = new Renevue(name, price, note, date, userId, getTypeID(name));
-                            database.insert_Renevue(renevue);
-                            Toast.makeText(view.getContext(), "Bạn đã thêm thành công!", Toast.LENGTH_SHORT).show();
+                            Revenue revenue = new Revenue(name, price, note, date, userId, getTypeID(name));
+                            database.insert_Revenue(revenue);
+                            Toast.makeText(view.getContext(), "Added successfully!", Toast.LENGTH_SHORT).show();
                             adapter.setData(getList());
                             adapter.notifyDataSetChanged();
                             tvTotal.setText(getPriceTotal() + "");
@@ -161,11 +156,11 @@ public class RenevueDetailFragment extends Fragment {
 
         LinearLayoutManager linearLayoutManager =new LinearLayoutManager(view.getContext(), RecyclerView.VERTICAL, false);
         rcV.setLayoutManager(linearLayoutManager);
-        adapter = new RenevueAdapter(this, getList());
+        adapter = new RevenueAdapter(this, getList());
         rcV.setAdapter(adapter);
     }
-    private ArrayList<Renevue> getList() {
-        ArrayList<Renevue> list = new ArrayList<>();
+    private ArrayList<Revenue> getList() {
+        ArrayList<Revenue> list = new ArrayList<>();
         Cursor cursor = database.select("revenues", userId);
         while (cursor.moveToNext()) {
             int id = cursor.getInt(0);
@@ -174,8 +169,8 @@ public class RenevueDetailFragment extends Fragment {
             String note = cursor.getString(3);
             String date = cursor.getString(4);
             int userId = cursor.getInt(5);
-            int renevueTypeId = cursor.getInt(6);
-            list.add(new Renevue(id, name, price, note, date, userId, renevueTypeId));
+            int revenueTypeId = cursor.getInt(6);
+            list.add(new Revenue(id, name, price, note, date, userId, revenueTypeId));
         }
         return list;
     }
@@ -201,12 +196,12 @@ public class RenevueDetailFragment extends Fragment {
     }
     public void delete(int id){
         AlertDialog.Builder dialog =new AlertDialog.Builder(getActivity());
-        dialog.setTitle("Xóa");
-        dialog.setMessage("Bạn có chắc muốn xóa khoản thu không?");
+        dialog.setTitle("Delete");
+        dialog.setMessage("Are you sure you want to delete this revenue?");
         dialog.setPositiveButton("Có", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                database.delete_Renevue("revenues", id);
+                database.delete_Revenue("revenues", id);
                 adapter.setData(getList());
                 adapter.notifyDataSetChanged();
                 tvTotal.setText(getPriceTotal() + "");
@@ -233,7 +228,7 @@ public class RenevueDetailFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mViewModel = new ViewModelProvider(this).get(RenevueDetailViewModel.class);
+        mViewModel = new ViewModelProvider(this).get(RevenueDetailViewModel.class);
         // TODO: Use the ViewModel
     }
 }

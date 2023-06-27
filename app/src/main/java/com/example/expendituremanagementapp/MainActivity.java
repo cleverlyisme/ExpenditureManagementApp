@@ -35,14 +35,14 @@ public class MainActivity extends AppCompatActivity {
         binding.appBarMain.fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Chúc bạn có thể quản lý chi tiêu thật tốt cùng với chúng tôi!", Snackbar.LENGTH_LONG)
+                Snackbar.make(view, "With you have a good time with out budgetmanagement app!", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
         });
         DrawerLayout drawer = binding.drawerLayout;
         NavigationView navigationView = binding.navView;
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_expense, R.id.nav_renevue)
+                R.id.nav_home, R.id.nav_expense, R.id.nav_revenue)
                 .setOpenableLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);

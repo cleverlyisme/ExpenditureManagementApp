@@ -130,13 +130,13 @@ public class ExpenseDetailFragment extends Fragment {
                         String note = edtNote.getText().toString().trim();
                         String date = edtDate.getText().toString().trim();
                         if(name.isEmpty() || edtPrice.getText().toString().trim().isEmpty()){
-                            Toast.makeText(view.getContext(), "Bạn phải nhập đầy đủ dữ liệu!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(view.getContext(), "You must enter full data!", Toast.LENGTH_SHORT).show();
                         }
                         else{
                             float price = Float.parseFloat(edtPrice.getText().toString().trim());
                             Expense expense = new Expense(name, price, note, date, userId, getTypeID(name));
                             database.insert_Expense(expense);
-                            Toast.makeText(view.getContext(), "Bạn đã thêm thành công!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(view.getContext(), "Added successfully!", Toast.LENGTH_SHORT).show();
                             adapter.setData(getList());
                             adapter.notifyDataSetChanged();
                             tvTotal.setText(getPriceTotal() + "");
@@ -196,8 +196,8 @@ public class ExpenseDetailFragment extends Fragment {
     }
     public void delete(int id){
         AlertDialog.Builder dialog =new AlertDialog.Builder(getActivity());
-        dialog.setTitle("Xóa");
-        dialog.setMessage("Bạn có chắc muốn xóa khoản thu không?");
+        dialog.setTitle("Delete");
+        dialog.setMessage("Are you sure you want to delete this revenue?");
         dialog.setPositiveButton("Có", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {

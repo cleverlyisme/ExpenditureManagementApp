@@ -15,18 +15,18 @@ import android.widget.EditText;
 
 import com.example.expendituremanagementapp.R;
 import com.example.expendituremanagementapp.adapter.ExpenseTypeStatisticRecyclerView;
-import com.example.expendituremanagementapp.adapter.RenevueTypeStatisticRecyclerView;
+import com.example.expendituremanagementapp.adapter.RevenueTypeStatisticRecyclerView;
 import com.example.expendituremanagementapp.model.ExpenseTypeStatistic;
-import com.example.expendituremanagementapp.model.RenevueTypeStatistic;
+import com.example.expendituremanagementapp.model.RevenueTypeStatistic;
 
 import java.util.List;
 
 public class StatisticFragment extends Fragment {
-    private RecyclerView rvRenevueTypeStatistic, rvExpenseTypeStatistic;
-    private RenevueTypeStatisticRecyclerView renevueTypeStatisticAdapter;
+    private RecyclerView rvRevenueTypeStatistic, rvExpenseTypeStatistic;
+    private RevenueTypeStatisticRecyclerView revenueTypeStatisticAdapter;
     private ExpenseTypeStatisticRecyclerView expenseTypeStatisticAdapter;
     private StatisticViewModel statisticViewModel;
-    private EditText etTotalRenevue, etTotalExpense;
+    private EditText etTotalRevenue, etTotalExpense;
 
     public StatisticFragment() {}
 
@@ -49,24 +49,24 @@ public class StatisticFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_statistic, container, false);
 
-        etTotalRenevue = view.findViewById(R.id.etTotalRenevue);
+        etTotalRevenue = view.findViewById(R.id.etTotalRevenue);
         etTotalExpense = view.findViewById(R.id.etTotalExpense);
-        rvRenevueTypeStatistic = view.findViewById(R.id.rvRenevueType);
+        rvRevenueTypeStatistic = view.findViewById(R.id.rvRevenueType);
         rvExpenseTypeStatistic = view.findViewById(R.id.rvExpenseType);
 
         statisticViewModel = new ViewModelProvider(this).get(StatisticViewModel.class);
 
-        renevueTypeStatisticAdapter = new RenevueTypeStatisticRecyclerView(getActivity());
-        rvRenevueTypeStatistic.setLayoutManager(new LinearLayoutManager(getActivity()));
-        rvRenevueTypeStatistic.setAdapter(renevueTypeStatisticAdapter);
+        revenueTypeStatisticAdapter = new RevenueTypeStatisticRecyclerView(getActivity());
+        rvRevenueTypeStatistic.setLayoutManager(new LinearLayoutManager(getActivity()));
+        rvRevenueTypeStatistic.setAdapter(revenueTypeStatisticAdapter);
 
         expenseTypeStatisticAdapter = new ExpenseTypeStatisticRecyclerView(getActivity());
         rvExpenseTypeStatistic.setLayoutManager(new LinearLayoutManager(getActivity()));
         rvExpenseTypeStatistic.setAdapter(expenseTypeStatisticAdapter);
-        statisticViewModel.getTotalRenevue().observe(getActivity(), new Observer<Float>() {
+        statisticViewModel.getTotalRevenue().observe(getActivity(), new Observer<Float>() {
             @Override
             public void onChanged(Float total) {
-                etTotalRenevue.setText(String.valueOf(total));
+                etTotalRevenue.setText(String.valueOf(total));
             }
         });
 
@@ -77,10 +77,10 @@ public class StatisticFragment extends Fragment {
             }
         });
 
-        statisticViewModel.getListRenevueTypeStatistic().observe(getActivity(), new Observer<List<RenevueTypeStatistic>>() {
+        statisticViewModel.getListRevenueTypeStatistic().observe(getActivity(), new Observer<List<RevenueTypeStatistic>>() {
             @Override
-            public void onChanged(List<RenevueTypeStatistic> lsr) {
-                renevueTypeStatisticAdapter.setList(lsr);
+            public void onChanged(List<RevenueTypeStatistic> lsr) {
+                revenueTypeStatisticAdapter.setList(lsr);
             }
         });
 

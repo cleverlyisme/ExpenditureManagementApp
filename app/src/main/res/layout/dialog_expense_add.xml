@@ -10,7 +10,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Thêm khoản chi"
+        android:text="Add expense"
         android:textSize="30dp"
         android:gravity="center"
         android:textColor="#FF0000"
@@ -20,20 +20,20 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="none"
-        android:hint="Loại chi"
+        android:hint="Expense type"
         android:layout_marginTop="8dp"/>
     <EditText
         android:id="@+id/edt_expense_add_price"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Số tiền"
+        android:hint="Price"
         android:inputType="number"
         android:layout_marginTop="8dp"/>
     <EditText
         android:id="@+id/edt_expense_add_note"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Ghi chú"
+        android:hint="Note"
         android:layout_marginTop="8dp"/>
     <EditText
         android:id="@+id/edt_expense_add_date"
@@ -54,13 +54,13 @@
             android:id="@+id/btn_expense_add"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Thêm"
+            android:text="Add"
             android:layout_marginRight="40dp"/>
         <Button
             android:id="@+id/btn_expense_add_cancel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Hủy"
+            android:text="Cancel"
             android:layout_alignParentEnd="true"/>
     </LinearLayout>
 

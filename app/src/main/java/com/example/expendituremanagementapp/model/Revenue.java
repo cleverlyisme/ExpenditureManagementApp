@@ -1,38 +1,28 @@
 package com.example.expendituremanagementapp.model;
 
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
-
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
-
-import com.example.expendituremanagementapp.database.DatabaseHelper;
-
-import java.time.LocalDate;
-
-public class Renevue {
-    private int id = -1, renevueTypeId=-1, userId = -1;
+public class Revenue {
+    private int id = -1, revenueTypeId=-1, userId = -1;
     private String name, note;
     private float price;
     private String date;
 
-    public Renevue() {}
+    public Revenue() {}
 
-    public Renevue(int id, String name, float price, String note, String date, int userId, int renevueTypeId) {
+    public Revenue(int id, String name, float price, String note, String date, int userId, int revenueTypeId) {
         this.id = id;
         this.name = name;
         this.note = note;
         this.price = price;
         this.date = date;
-        this.renevueTypeId = renevueTypeId;
+        this.revenueTypeId = revenueTypeId;
         this.userId = userId;
     }
-    public Renevue(String name, float price, String note, String date, int userId, int renevueTypeId) {
+    public Revenue(String name, float price, String note, String date, int userId, int revenueTypeId) {
         this.name = name;
         this.note = note;
         this.price = price;
         this.date = date;
-        this.renevueTypeId = renevueTypeId;
+        this.revenueTypeId = revenueTypeId;
         this.userId = userId;
     }
 
@@ -76,12 +66,12 @@ public class Renevue {
         this.userId = userId;
     }
 
-    public int getRenevueTypeId() {
-        return renevueTypeId;
+    public int getRevenueTypeId() {
+        return revenueTypeId;
     }
 
-    public void setRenevueTypeId(int renevueTypeId) {
-        this.renevueTypeId = renevueTypeId;
+    public void setRevenueTypeId(int revenueTypeId) {
+        this.revenueTypeId = revenueTypeId;
     }
 
     public String getDate() {

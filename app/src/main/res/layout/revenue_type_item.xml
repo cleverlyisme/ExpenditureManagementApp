@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
     <RelativeLayout
-        android:id="@+id/renevue_type_item_layout"
+        android:id="@+id/revenue_type_item_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingStart="8dp"
@@ -17,7 +17,7 @@
             android:src="@drawable/ic_action_money"
             android:layout_centerVertical="true"/>
         <TextView
-            android:id="@+id/renevue_type_item_name"
+            android:id="@+id/revenue_type_item_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Thưởng"
@@ -26,15 +26,15 @@
             android:layout_marginLeft="40dp"
             android:layout_centerVertical="true"/>
         <ImageView
-            android:id="@+id/renevue_type_item_edit"
+            android:id="@+id/revenue_type_item_edit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_action_edit"
-            android:layout_toStartOf="@+id/renevue_type_item_delete"
+            android:layout_toStartOf="@+id/revenue_type_item_delete"
             android:layout_marginRight="5dp"
             android:layout_centerVertical="true"/>
         <ImageView
-            android:id="@+id/renevue_type_item_delete"
+            android:id="@+id/revenue_type_item_delete"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_action_delete"

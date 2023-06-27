@@ -5,11 +5,11 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
-import com.example.expendituremanagementapp.ui.renevue.RenevueDetailFragment;
-import com.example.expendituremanagementapp.ui.renevue.RenevueTypeFragment;
+import com.example.expendituremanagementapp.ui.revenue.RevenueDetailFragment;
+import com.example.expendituremanagementapp.ui.revenue.RevenueTypeFragment;
 
-public class RenevueViewPage2Adapter extends FragmentStateAdapter {
-    public RenevueViewPage2Adapter(@NonNull FragmentActivity fragmentActivity) {
+public class RevenueViewPage2Adapter extends FragmentStateAdapter {
+    public RevenueViewPage2Adapter(@NonNull FragmentActivity fragmentActivity) {
         super(fragmentActivity);
     }
 
@@ -18,9 +18,9 @@ public class RenevueViewPage2Adapter extends FragmentStateAdapter {
     public Fragment createFragment(int position) {
         Fragment fragment;
         if(position == 0){
-            fragment = new RenevueDetailFragment();
+            fragment = new RevenueDetailFragment();
         }else {
-            fragment = new RenevueTypeFragment();
+            fragment = new RevenueTypeFragment();
         }
         return fragment;
     }

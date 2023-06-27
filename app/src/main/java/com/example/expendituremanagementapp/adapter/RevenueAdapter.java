@@ -1,6 +1,5 @@
 package com.example.expendituremanagementapp.adapter;
 
-import android.content.Context;
 import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,20 +13,20 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.expendituremanagementapp.R;
-import com.example.expendituremanagementapp.model.Expense;
-import com.example.expendituremanagementapp.ui.expense.ExpenseDetailFragment;
+import com.example.expendituremanagementapp.model.Revenue;
+import com.example.expendituremanagementapp.ui.revenue.RevenueDetailFragment;
 
 import java.util.List;
 
-public class ExpenseAdapter extends  RecyclerView.Adapter<ExpenseAdapter.ExpenseViewAdapter> {
-    private ExpenseDetailFragment context;
-    private List<Expense> lists;
+public class RevenueAdapter extends RecyclerView.Adapter<RevenueAdapter.RevenueViewAdapter>{
+    private RevenueDetailFragment context;
+    private List<Revenue> lists;
 
-    public ExpenseAdapter(ExpenseDetailFragment context, List<Expense> lists) {
+    public RevenueAdapter(RevenueDetailFragment context, List<Revenue> lists) {
         this.context = context;
         this.lists = lists;
     }
-    public void setData(List<Expense> lists){
+    public void setData(List<Revenue> lists){
         this.lists = lists;
         notifyDataSetChanged();
     }
@@ -35,35 +34,35 @@ public class ExpenseAdapter extends  RecyclerView.Adapter<ExpenseAdapter.Expense
 
     @NonNull
     @Override
-    public ExpenseAdapter.ExpenseViewAdapter onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.expense_detail_item, parent, false);
-        return new ExpenseAdapter.ExpenseViewAdapter(view);
+    public RevenueViewAdapter onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.revenue_detail_item, parent, false);
+        return new RevenueViewAdapter(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ExpenseAdapter.ExpenseViewAdapter holder, int position) {
-        Expense expense = lists.get(position);
-        if (expense == null)
+    public void onBindViewHolder(@NonNull RevenueViewAdapter holder, int position) {
+        Revenue revenue = lists.get(position);
+        if (revenue == null)
             return;
-        holder.name.setText(expense.getName());
-        holder.price.setText(expense.getPrice() + "");
+        holder.name.setText(revenue.getName());
+        holder.price.setText(revenue.getPrice() + "");
 
         holder.btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                context.delete(expense.getId());
+                context.delete(revenue.getId());
             }
         });
         holder.layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(expense.getNote().isEmpty()){
-                    expense.setNote("You don't have note!");
+                if(revenue.getNote().isEmpty()){
+                    revenue.setNote("You don't have note!");
                 }
 
                 AlertDialog.Builder buider = new AlertDialog.Builder(v.getContext());
                 buider.setTitle("Information");
-                buider.setMessage("Name: "+expense.getName()+"\nPrice: "+expense.getPrice()+"\nNote: "+expense.getNote()+"\nThời gian: "+expense.getDate());
+                buider.setMessage("Name: "+ revenue.getName()+"\nPrice: "+ revenue.getPrice()+"\nNote: "+ revenue.getNote()+"\nThời gian: "+ revenue.getDate());
                 buider.setPositiveButton("Close", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -83,17 +82,17 @@ public class ExpenseAdapter extends  RecyclerView.Adapter<ExpenseAdapter.Expense
         return 0;
     }
 
-    public class ExpenseViewAdapter extends RecyclerView.ViewHolder{
+    public class RevenueViewAdapter extends RecyclerView.ViewHolder{
         private TextView name, note, price;
         private LinearLayout layout;
         private ImageButton btn;
-        public ExpenseViewAdapter(@NonNull View itemView) {
+        public RevenueViewAdapter(@NonNull View itemView) {
             super(itemView);
 
-            name = itemView.findViewById(R.id.expense_detail_name);
-            price = itemView.findViewById(R.id.expense_detail_price);
-            btn = itemView.findViewById(R.id.btn_expense_item_delete);
-            layout = itemView.findViewById(R.id.expense_item_layout);
+            name = itemView.findViewById(R.id.revenue_detail_name);
+            price = itemView.findViewById(R.id.revenue_detail_price);
+            btn = itemView.findViewById(R.id.btn_revenue_item_delete);
+            layout = itemView.findViewById(R.id.revenue_item_layout);
         }
     }
 }

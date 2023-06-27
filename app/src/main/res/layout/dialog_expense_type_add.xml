@@ -8,7 +8,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Thêm loại chi"
+        android:text="Add expense type"
         android:textSize="25sp"
         android:textColor="#E91E63"
         android:gravity="center"/>
@@ -16,7 +16,7 @@
         android:id="@+id/edt_expense_type_add_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Nhập tên loại chi"
+        android:hint="Enter expense type"
         android:textSize="18sp"
         android:layout_marginTop="15dp"/>
     <LinearLayout
@@ -30,7 +30,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Thêm"
+            android:text="Add"
             android:textSize="18sp"
             android:layout_margin="10dp"/>
         <Button
@@ -38,7 +38,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Hủy"
+            android:text="Cancel"
             android:textSize="18sp"
             android:layout_margin="10dp"/>
     </LinearLayout>

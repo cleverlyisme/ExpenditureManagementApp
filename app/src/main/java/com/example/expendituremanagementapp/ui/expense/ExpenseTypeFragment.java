@@ -57,10 +57,10 @@ public class ExpenseTypeFragment extends Fragment {
         SQLiteDatabase db = database.getWritableDatabase();
 
         if (check(1)){
-            db.execSQL("INSERT INTO expense_types VALUES(1, 'Tiền điện', 1)");
+            db.execSQL("INSERT INTO expense_types VALUES(1, 'Electricity', 1)");
         }
         if (check(2)){
-            db.execSQL("INSERT INTO expense_types VALUES(2, 'Chi khác', 1)");
+            db.execSQL("INSERT INTO expense_types VALUES(2, 'Others', 1)");
         }
 
         tvAdd.setOnClickListener(new View.OnClickListener() {
@@ -86,14 +86,14 @@ public class ExpenseTypeFragment extends Fragment {
                     public void onClick(View v) {
                         String name = edtName.getText().toString().trim();
                         if(name.isEmpty()){
-                            Toast.makeText(view.getContext(), "Bạn chưa nhập nội dung!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(view.getContext(), "You didn't type anything!", Toast.LENGTH_SHORT).show();
                             dialog.dismiss();
                             return;
                         }
                         db.execSQL("INSERT INTO expense_types VALUES(null, '"+name+"', 1)");
                         dialog.dismiss();
                         actionGetData();
-                        Toast.makeText(view.getContext(), "Bạn đã thêm thành công!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(view.getContext(), "Added successfully!", Toast.LENGTH_SHORT).show();
 
                     }
                 });
@@ -124,8 +124,8 @@ public class ExpenseTypeFragment extends Fragment {
 
     public void delete(String name, int i){
         AlertDialog.Builder dialog =new AlertDialog.Builder(getActivity());
-        dialog.setTitle("Xóa");
-        dialog.setMessage("Bạn có chắc muốn xóa "+name+" không?");
+        dialog.setTitle("Delete");
+        dialog.setMessage("Are you sure you want to delete "+name+" ?");
         dialog.setPositiveButton("Có", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -168,7 +168,7 @@ public class ExpenseTypeFragment extends Fragment {
                 String name = edtName.getText().toString().trim();
 //                Toast.makeText(v.getContext(), "Chỉnh sửa", Toast.LENGTH_SHORT).show();
                 if(name.isEmpty()){
-                    Toast.makeText(v.getContext(), "Bạn phải nhập dữ liệu!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(v.getContext(), "You must enter full data!", Toast.LENGTH_SHORT).show();
                     dialog.dismiss();
                     return;
                 }

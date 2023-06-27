@@ -1,4 +1,4 @@
-package com.example.expendituremanagementapp.ui.renevue;
+package com.example.expendituremanagementapp.ui.revenue;
 
 import androidx.lifecycle.ViewModelProvider;
 
@@ -6,7 +6,6 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -28,29 +27,29 @@ import android.widget.Toast;
 
 import com.example.expendituremanagementapp.R;
 import com.example.expendituremanagementapp.database.DatabaseHelper;
-import com.example.expendituremanagementapp.adapter.RenevueTypeAdapter;
-import com.example.expendituremanagementapp.model.RenevueType;
+import com.example.expendituremanagementapp.adapter.RevenueTypeAdapter;
+import com.example.expendituremanagementapp.model.RevenueType;
 
 import java.util.ArrayList;
 
-public class RenevueTypeFragment extends Fragment {
-    private RenevueTypeViewModel mViewModel;
+public class RevenueTypeFragment extends Fragment {
+    private RevenueTypeViewModel mViewModel;
     private RecyclerView rcV;
-    private RenevueTypeAdapter adapter;
+    private RevenueTypeAdapter adapter;
     private TextView tvAdd;
     private DatabaseHelper database;
     //truyền serID vào đây
     private int userId = 1;
 
-    public static RenevueTypeFragment newInstance() {
-        return new RenevueTypeFragment();
+    public static RevenueTypeFragment newInstance() {
+        return new RevenueTypeFragment();
     }
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        rcV = view.findViewById(R.id.rcV_renevue_type);
-        tvAdd = view.findViewById(R.id.tv_renevue_type_add);
+        rcV = view.findViewById(R.id.rcV_revenue_type);
+        tvAdd = view.findViewById(R.id.tv_revenue_type_add);
 
         database = new DatabaseHelper(view.getContext());
 
@@ -58,14 +57,14 @@ public class RenevueTypeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 final Dialog dialog = new Dialog(getActivity());
-                dialog.setContentView(R.layout.dialog_renevue_type_add);
+                dialog.setContentView(R.layout.dialog_revenue_type_add);
                 Window window = dialog.getWindow();
                 if(window != null){
                     window.setLayout(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
                 }
-                EditText edtName = dialog.findViewById(R.id.edt_renevue_type_add_name);
-                Button btnAdd = dialog.findViewById(R.id.btn_renevue_type_add);
-                Button btnCanel = dialog.findViewById(R.id.btn_renevue_type_add_cancel);
+                EditText edtName = dialog.findViewById(R.id.edt_revenue_type_add_name);
+                Button btnAdd = dialog.findViewById(R.id.btn_revenue_type_add);
+                Button btnCanel = dialog.findViewById(R.id.btn_revenue_type_add_cancel);
                 btnCanel.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -77,12 +76,12 @@ public class RenevueTypeFragment extends Fragment {
                     public void onClick(View v) {
                         String name = edtName.getText().toString().trim();
                         if(name.isEmpty()){
-                            Toast.makeText(view.getContext(), "Bạn chưa nhập nội dung!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(view.getContext(), "You didn't type anything!", Toast.LENGTH_SHORT).show();
                             dialog.dismiss();
                             return;
                         }
-                        Toast.makeText(view.getContext(), "Bạn đã thêm thành công!", Toast.LENGTH_SHORT).show();
-                        database.insert_Renevue_Type(name, userId);
+                        Toast.makeText(view.getContext(), "Added successfully!", Toast.LENGTH_SHORT).show();
+                        database.insert_Revenue_Type(name, userId);
                         adapter.setData(getList());
                         adapter.notifyDataSetChanged();
                         dialog.dismiss();
@@ -97,31 +96,31 @@ public class RenevueTypeFragment extends Fragment {
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(view.getContext(), RecyclerView.VERTICAL, false);
         rcV.setLayoutManager(linearLayoutManager);
-        adapter = new RenevueTypeAdapter(this, getList());
+        adapter = new RevenueTypeAdapter(this, getList());
         rcV.setAdapter(adapter);
     }
 
-    private ArrayList<RenevueType> getList(){
-        ArrayList<RenevueType> arrayList = new ArrayList<>();
+    private ArrayList<RevenueType> getList(){
+        ArrayList<RevenueType> arrayList = new ArrayList<>();
         Cursor cursor1 = database.select("revenue_types", userId);
         while (cursor1.moveToNext()){
             int id = cursor1.getInt(0);
             String name = cursor1.getString(1);
             int userId = cursor1.getInt(2);
-            arrayList.add(new RenevueType(id, userId, name));
+            arrayList.add(new RevenueType(id, userId, name));
         }
         return arrayList;
     }
 
     public void delete(String name, int id){
         AlertDialog.Builder dialog =new AlertDialog.Builder(getActivity());
-        dialog.setTitle("Xóa");
-        dialog.setMessage("Bạn có chắc muốn xóa "+name+" không?");
-        dialog.setPositiveButton("Có", new DialogInterface.OnClickListener() {
+        dialog.setTitle("Delete");
+        dialog.setMessage("Are you sure you want to delete "+name+" ?");
+        dialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                database.delete_Renevue("revenue_types", id);
-                Toast.makeText(getContext(), "Bạn đã xóa  loại thu thành công!", Toast.LENGTH_SHORT).show();
+                database.delete_Revenue("revenue_types", id);
+                Toast.makeText(getContext(), "Deleted revenue type successfully!", Toast.LENGTH_SHORT).show();
                 adapter.setData(getList());
                 adapter.notifyDataSetChanged();
             }
@@ -136,14 +135,14 @@ public class RenevueTypeFragment extends Fragment {
     }
     public void edit(String ten, int id){
         Dialog dialog = new Dialog(getActivity());
-        dialog.setContentView(R.layout.dialog_renevue_type_edit);
+        dialog.setContentView(R.layout.dialog_revenue_type_edit);
         Window window = dialog.getWindow();
         if(window != null){
             window.setLayout(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         }
-        EditText edtName = dialog.findViewById(R.id.edt_renevue_type_edit_name);
-        Button btnEdit = dialog.findViewById(R.id.btn_renevue_type_edit);
-        Button btnCanel = dialog.findViewById(R.id.btn_renevue_type_edit_cancel);
+        EditText edtName = dialog.findViewById(R.id.edt_revenue_type_edit_name);
+        Button btnEdit = dialog.findViewById(R.id.btn_revenue_type_edit);
+        Button btnCanel = dialog.findViewById(R.id.btn_revenue_type_edit_cancel);
 
         edtName.setText(ten);
         btnCanel.setOnClickListener(new View.OnClickListener() {
@@ -157,14 +156,14 @@ public class RenevueTypeFragment extends Fragment {
             public void onClick(View v) {
                 String name = edtName.getText().toString().trim();
                 if(name.isEmpty()){
-                    Toast.makeText(v.getContext(), "Bạn phải nhập dữ liệu!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(v.getContext(), "You have to type data", Toast.LENGTH_SHORT).show();
                     dialog.dismiss();
                     return;
                 }
                 else {
-                    RenevueType renevueType = new RenevueType(id, name);
-                    database.update_Renevue_Type(renevueType);
-                    Toast.makeText(getContext(), "Bạn đã sửa thành công!", Toast.LENGTH_SHORT).show();
+                    RevenueType revenueType = new RevenueType(id, name);
+                    database.update_Revenue_Type(revenueType);
+                    Toast.makeText(getContext(), "Edited successfully!", Toast.LENGTH_SHORT).show();
                     adapter.setData(getList());
                     adapter.notifyDataSetChanged();
                     dialog.dismiss();
@@ -176,7 +175,7 @@ public class RenevueTypeFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_renevue_type, container, false);
+        return inflater.inflate(R.layout.fragment_revenue_type, container, false);
     }
     public boolean checkUserId(int id){
         if(id == userId)
@@ -187,7 +186,7 @@ public class RenevueTypeFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mViewModel = new ViewModelProvider(this).get(RenevueTypeViewModel.class);
+        mViewModel = new ViewModelProvider(this).get(RevenueTypeViewModel.class);
         // TODO: Use the ViewModel
     }
 }

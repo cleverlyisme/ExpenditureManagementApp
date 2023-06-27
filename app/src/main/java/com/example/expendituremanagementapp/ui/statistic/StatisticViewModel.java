@@ -11,7 +11,7 @@ import androidx.lifecycle.MutableLiveData;
 import com.example.expendituremanagementapp.database.DatabaseHelper;
 import com.example.expendituremanagementapp.helper.AsyncTaskExecutorService;
 import com.example.expendituremanagementapp.model.ExpenseTypeStatistic;
-import com.example.expendituremanagementapp.model.RenevueTypeStatistic;
+import com.example.expendituremanagementapp.model.RevenueTypeStatistic;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +19,7 @@ import java.util.List;
 public class StatisticViewModel extends AndroidViewModel {
     private DatabaseHelper db;
     private MutableLiveData<Float> totalRevenue, totalExpense;
-    private MutableLiveData<List<RenevueTypeStatistic>> lsr;
+    private MutableLiveData<List<RevenueTypeStatistic>> lsr;
     private MutableLiveData<List<ExpenseTypeStatistic>> lst;
 
     public StatisticViewModel(Application application) {
@@ -32,8 +32,8 @@ public class StatisticViewModel extends AndroidViewModel {
         lst = new MutableLiveData<>();
     }
 
-    public LiveData<List<RenevueTypeStatistic>> getListRenevueTypeStatistic() {
-        new ListRenevueTypeStatisticAsyncTask().execute();
+    public LiveData<List<RevenueTypeStatistic>> getListRevenueTypeStatistic() {
+        new ListRevenueTypeStatisticAsyncTask().execute();
         return lsr;
     }
 
@@ -42,8 +42,8 @@ public class StatisticViewModel extends AndroidViewModel {
         return lst;
     }
 
-    public LiveData<Float> getTotalRenevue() {
-        new TotalRenevueAsyncTask().execute();
+    public LiveData<Float> getTotalRevenue() {
+        new TotalRevenueAsyncTask().execute();
         return totalRevenue;
     }
 
@@ -52,22 +52,22 @@ public class StatisticViewModel extends AndroidViewModel {
         return totalExpense;
     }
 
-    private class ListRenevueTypeStatisticAsyncTask extends AsyncTaskExecutorService<Void, Void, List<RenevueTypeStatistic>> {
-        protected List<RenevueTypeStatistic> doInBackground(Void params) {
+    private class ListRevenueTypeStatisticAsyncTask extends AsyncTaskExecutorService<Void, Void, List<RevenueTypeStatistic>> {
+        protected List<RevenueTypeStatistic> doInBackground(Void params) {
             SQLiteDatabase database = db.getReadableDatabase();
-            Cursor cursor = database.rawQuery("SELECT r.renevueTypeId, rt.name, " +
-                    "sum(r.price) AS total FROM renevues r" +
-                    "INNER JOIN renevue_types rt ON r.renevueTypeId = rt.id " +
-                    "GROUP BY  r.renevueTypeId, rt.name", null);
-            List<RenevueTypeStatistic> ls = new ArrayList<>();
+            Cursor cursor = database.rawQuery("SELECT b.id, b.name, " +
+                    "sum(a.price) AS total FROM revenues a " +
+                    "INNER JOIN revenue_types b ON a.revenueTypeId = b.id " +
+                    "GROUP BY  b.id, b.name", null);
+            List<RevenueTypeStatistic> ls = new ArrayList<>();
             while (cursor.moveToNext()) {
-                ls.add(new RenevueTypeStatistic(cursor.getInt(0),
+                ls.add(new RevenueTypeStatistic(cursor.getInt(0),
                         cursor.getString(1), cursor.getFloat(2)));
             }
             return ls;
         }
 
-        protected void onPostExecute(List<RenevueTypeStatistic> ls) {
+        protected void onPostExecute(List<RevenueTypeStatistic> ls) {
             lsr.setValue(ls);
         }
     }
@@ -75,10 +75,10 @@ public class StatisticViewModel extends AndroidViewModel {
     private class ListExpenseTypeStatisticAsyncTask extends AsyncTaskExecutorService<Void, Void, List<ExpenseTypeStatistic>> {
         protected List<ExpenseTypeStatistic> doInBackground(Void params) {
             SQLiteDatabase database = db.getReadableDatabase();
-            Cursor cursor = database.rawQuery("SELECT r.expenseTypeId, rt.name, " +
-                    "sum(r.price) AS total FROM expenses r" +
-                    "INNER JOIN expense_types rt ON r.renevueTypeId = rt.id " +
-                    "GROUP BY  r.expenseTypeId, rt.name", null);
+            Cursor cursor = database.rawQuery("SELECT b.id, b.name, " +
+                    "sum(a.price) AS total FROM expenses a " +
+                    "INNER JOIN expense_types b ON a.expenseTypeId = b.id " +
+                    "GROUP BY  b.id, b.name", null);
             List<ExpenseTypeStatistic> ls = new ArrayList<>();
             while (cursor.moveToNext()) {
                 ls.add(new ExpenseTypeStatistic(cursor.getInt(0),
@@ -92,7 +92,7 @@ public class StatisticViewModel extends AndroidViewModel {
         }
     }
 
-    private class TotalRenevueAsyncTask extends AsyncTaskExecutorService<Void, Void, Float> {
+    private class TotalRevenueAsyncTask extends AsyncTaskExecutorService<Void, Void, Float> {
         protected Float doInBackground(Void params) {
             SQLiteDatabase database = db.getReadableDatabase();
             Cursor cursor = database.rawQuery("SELECT SUM(price) FROM revenues", null);

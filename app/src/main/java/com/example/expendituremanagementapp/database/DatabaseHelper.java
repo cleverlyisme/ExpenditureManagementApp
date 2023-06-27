@@ -5,16 +5,11 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
-
 import com.example.expendituremanagementapp.model.Expense;
-import com.example.expendituremanagementapp.model.Renevue;
-import com.example.expendituremanagementapp.model.RenevueType;
-import com.example.expendituremanagementapp.model.RenevueTypeStatistic;
+import com.example.expendituremanagementapp.model.Revenue;
+import com.example.expendituremanagementapp.model.RevenueType;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "budget_management.db";
@@ -66,9 +61,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 "note TEXT, " +
                 "date DATE DEFAULT CURRENT_DATE, " +
                 "userId INTEGER NOT NULL, " +
-                "renevueTypeId INTEGER NOT NULL, " +
+                "revenueTypeId INTEGER NOT NULL, " +
                 "FOREIGN KEY (userId) REFERENCES users(id) ON DELETE CASCADE,"+
-                "FOREIGN KEY (renevueTypeId) REFERENCES renevues(id) ON DELETE CASCADE)";
+                "FOREIGN KEY (revenueTypeId) REFERENCES revenues(id) ON DELETE CASCADE)";
         db.execSQL(createRevenuesTableQuery);
     }
 
@@ -77,23 +72,23 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = getReadableDatabase();
         return db.rawQuery(select, null);
     }
-    public void insert_Renevue_Type(String name, int userID){
+    public void insert_Revenue_Type(String name, int userID){
         String insert = "INSERT INTO revenue_types VALUES (null, '"+name+"', "+userID+")";
         SQLiteDatabase db = getWritableDatabase();
         db.execSQL(insert);
     }
-    public void update_Renevue_Type(RenevueType renevueType){
-        String update = "UPDATE revenue_types SET name='"+renevueType.getName()+"' WHERE id='"+renevueType.getId()+"'";
+    public void update_Revenue_Type(RevenueType revenueType){
+        String update = "UPDATE revenue_types SET name='"+revenueType.getName()+"' WHERE id='"+revenueType.getId()+"'";
         SQLiteDatabase db = getWritableDatabase();
         db.execSQL(update);
     }
-    public void delete_Renevue(String table, int id){
+    public void delete_Revenue(String table, int id){
         String delete = "DELETE FROM "+table+" WHERE id = "+id+"";
         SQLiteDatabase db = getWritableDatabase();
         db.execSQL(delete);
     }
-    public void insert_Renevue(Renevue renevue){
-        String insert = "INSERT INTO revenues VALUES(null, '"+renevue.getName()+"', "+renevue.getPrice()+", '"+renevue.getNote()+"', '"+renevue.getDate()+"', "+renevue.getUserId()+", "+renevue.getRenevueTypeId()+")";
+    public void insert_Revenue(Revenue revenue){
+        String insert = "INSERT INTO revenues VALUES(null, '"+ revenue.getName()+"', "+ revenue.getPrice()+", '"+ revenue.getNote()+"', '"+ revenue.getDate()+"', "+ revenue.getUserId()+", "+ revenue.getRevenueTypeId()+")";
         SQLiteDatabase db = getWritableDatabase();
         db.execSQL(insert);
     }
@@ -108,8 +103,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = getWritableDatabase();
         db.execSQL(insert);
     }
-    public void update_Renevue(Renevue renevue){
-        String update = "UPDATE revenues SET name = '"+renevue.getName()+"', price = "+renevue.getPrice()+", note = '"+renevue.getNote()+"', date = '"+LocalDate.parse(renevue.getDate())+"' ";
+    public void update_Revenue(Revenue revenue){
+        String update = "UPDATE revenues SET name = '"+ revenue.getName()+"', price = "+ revenue.getPrice()+", note = '"+ revenue.getNote()+"', date = '"+LocalDate.parse(revenue.getDate())+"' ";
         SQLiteDatabase db = getWritableDatabase();
         db.execSQL(update);
     }

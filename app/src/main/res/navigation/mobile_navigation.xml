@@ -27,10 +27,10 @@
         android:label="Expenses"
         tools:layout="@layout/fragment_expense" />
     <fragment
-        android:id="@+id/nav_renevue"
-        android:name="com.example.expendituremanagementapp.ui.renevue.RenevueFragment"
-        android:label="Renevues"
-        tools:layout="@layout/fragment_renevue" />
+        android:id="@+id/nav_revenue"
+        android:name="com.example.expendituremanagementapp.ui.revenue.RevenueFragment"
+        android:label="Revenues"
+        tools:layout="@layout/fragment_revenue" />
     <fragment
         android:id="@+id/nav_exit"
         android:name="com.example.expendituremanagementapp.ui.home.HomeFragment"

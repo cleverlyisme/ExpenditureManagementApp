@@ -5,19 +5,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.renevue.RenevueTypeFragment"
+    tools:context=".ui.revenue.RevenueTypeFragment"
     android:padding="10dp">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rcV_renevue_type"
+        android:id="@+id/rcV_revenue_type"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
     <TextView
-        android:id="@+id/tv_renevue_type_add"
+        android:id="@+id/tv_revenue_type_add"
         android:layout_width="match_parent"
         android:layout_height="25dp"
-        android:layout_below="@+id/rcV_renevue_type"
-        android:text="Thêm mới"
+        android:layout_below="@+id/rcV_revenue_type"
+        android:text="Add"
         android:textSize="18sp"
         android:textColor="#FF0000"
         android:drawableStart="@drawable/ic_action_add"
