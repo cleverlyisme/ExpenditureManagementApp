@@ -29,6 +29,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.expendituremanagementapp.MainActivity;
 import com.example.expendituremanagementapp.R;
 import com.example.expendituremanagementapp.adapter.ExpenseAdapter;
 import com.example.expendituremanagementapp.database.DatabaseHelper;
@@ -66,6 +67,8 @@ public class ExpenseDetailFragment extends Fragment {
         tvAdd = view.findViewById(R.id.tv_expense_add);
         tvTotal = view.findViewById(R.id.tv_expense_total);
         database = new DatabaseHelper(view.getContext());
+
+        userId = ((MainActivity) getActivity()).userID();
         tvAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -26,6 +26,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.expendituremanagementapp.MainActivity;
 import com.example.expendituremanagementapp.R;
 import com.example.expendituremanagementapp.database.DatabaseHelper;
 import com.example.expendituremanagementapp.adapter.RenevueTypeAdapter;
@@ -51,6 +52,8 @@ public class RenevueTypeFragment extends Fragment {
 
         rcV = view.findViewById(R.id.rcV_renevue_type);
         tvAdd = view.findViewById(R.id.tv_renevue_type_add);
+
+        userId = ((MainActivity) getActivity()).userID();
 
         database = new DatabaseHelper(view.getContext());
 

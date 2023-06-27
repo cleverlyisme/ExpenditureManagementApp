@@ -1,9 +1,13 @@
 package com.example.expendituremanagementapp;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
+import android.widget.TextView;
 
+import com.example.expendituremanagementapp.ui.user.LoginActivity;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 
@@ -23,6 +27,8 @@ public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityMainBinding binding;
+
+    private int userId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +61,26 @@ public class MainActivity extends AppCompatActivity {
         });
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+
+        // Kiểm tra và cập nhật tên người dùng trong nav_header_main.xml
+        if (getIntent().hasExtra("username")) {
+            String username = getIntent().getStringExtra("username");
+            View headerView = navigationView.getHeaderView(0);
+            TextView textUsername = headerView.findViewById(R.id.textUsername);
+            textUsername.setText(username);
+        }
+        userId = getIntent().getIntExtra("userID", 0);
+    }
+
+    public void logout(MenuItem item) {
+        // Xóa thông tin đăng nhập và chuyển về LoginActivity
+        Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+//        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+        finish();
+    }
+    public int userID(){
+        return userId;
     }
 
     @Override

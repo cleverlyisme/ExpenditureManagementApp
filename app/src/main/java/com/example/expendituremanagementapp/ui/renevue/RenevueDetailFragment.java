@@ -33,6 +33,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.expendituremanagementapp.MainActivity;
 import com.example.expendituremanagementapp.R;
 import com.example.expendituremanagementapp.database.DatabaseHelper;
 import com.example.expendituremanagementapp.adapter.RenevueAdapter;
@@ -71,6 +72,8 @@ public class RenevueDetailFragment extends Fragment {
         tvAdd = view.findViewById(R.id.tv_renevue_add);
         tvTotal = view.findViewById(R.id.tv_renevue_total);
         database = new DatabaseHelper(view.getContext());
+
+        userId = ((MainActivity) getActivity()).userID();
         tvAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

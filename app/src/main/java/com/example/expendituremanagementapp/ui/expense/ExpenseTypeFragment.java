@@ -25,6 +25,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.expendituremanagementapp.MainActivity;
 import com.example.expendituremanagementapp.R;
 import com.example.expendituremanagementapp.adapter.ExpenseTypeAdapter;
 import com.example.expendituremanagementapp.database.DatabaseHelper;
@@ -41,6 +42,8 @@ public class ExpenseTypeFragment extends Fragment {
     private TextView tvAdd;
     private DatabaseHelper database;
 
+    private int userId = 1;
+
     public static ExpenseTypeFragment newInstance() {
         return new ExpenseTypeFragment();
     }
@@ -53,15 +56,10 @@ public class ExpenseTypeFragment extends Fragment {
         adapter = new ExpenseTypeAdapter(this, arrayList);
         tvAdd = view.findViewById(R.id.tv_expense_type_add);
 
+        userId = ((MainActivity) getActivity()).userID();
+
         database = new DatabaseHelper(view.getContext());
         SQLiteDatabase db = database.getWritableDatabase();
-
-        if (check(1)){
-            db.execSQL("INSERT INTO expense_types VALUES(1, 'Tiền điện', 1)");
-        }
-        if (check(2)){
-            db.execSQL("INSERT INTO expense_types VALUES(2, 'Chi khác', 1)");
-        }
 
         tvAdd.setOnClickListener(new View.OnClickListener() {
             @Override
