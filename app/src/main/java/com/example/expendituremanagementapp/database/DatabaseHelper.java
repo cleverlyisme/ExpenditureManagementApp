@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import com.example.expendituremanagementapp.model.Expense;
 import com.example.expendituremanagementapp.model.Renevue;
 import com.example.expendituremanagementapp.model.RenevueType;
 import com.example.expendituremanagementapp.model.RenevueTypeStatistic;
@@ -93,6 +94,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
     public void insert_Renevue(Renevue renevue){
         String insert = "INSERT INTO revenues VALUES(null, '"+renevue.getName()+"', "+renevue.getPrice()+", '"+renevue.getNote()+"', '"+renevue.getDate()+"', "+renevue.getUserId()+", "+renevue.getRenevueTypeId()+")";
+        SQLiteDatabase db = getWritableDatabase();
+        db.execSQL(insert);
+    }
+
+    public void delete_Expense(String table, int id){
+        String delete = "DELETE FROM "+table+" WHERE id = "+id+"";
+        SQLiteDatabase db = getWritableDatabase();
+        db.execSQL(delete);
+    }
+    public void insert_Expense(Expense expense){
+        String insert = "INSERT INTO expenses VALUES(null, '"+expense.getName()+"', "+expense.getPrice()+", '"+expense.getNote()+"', '"+expense.getDate()+"', "+expense.getUserId()+", "+expense.getExpenseTypeId()+")";
         SQLiteDatabase db = getWritableDatabase();
         db.execSQL(insert);
     }
