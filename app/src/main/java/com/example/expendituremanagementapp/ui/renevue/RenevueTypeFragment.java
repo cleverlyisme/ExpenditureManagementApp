@@ -12,6 +12,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -36,9 +37,10 @@ public class RenevueTypeFragment extends Fragment {
     private RenevueTypeViewModel mViewModel;
     private RecyclerView rcV;
     private RenevueTypeAdapter adapter;
-    private ArrayList<RenevueType> arrayList;
     private TextView tvAdd;
     private DatabaseHelper database;
+    //truyền serID vào đây
+    private int userId = 2;
 
     public static RenevueTypeFragment newInstance() {
         return new RenevueTypeFragment();
@@ -48,19 +50,9 @@ public class RenevueTypeFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         rcV = view.findViewById(R.id.rcV_renevue_type);
-        arrayList = new ArrayList<>();
-        adapter = new RenevueTypeAdapter(this, arrayList);
         tvAdd = view.findViewById(R.id.tv_renevue_type_add);
 
         database = new DatabaseHelper(view.getContext());
-        SQLiteDatabase db = database.getWritableDatabase();
-
-        if (check(1)){
-            db.execSQL("INSERT INTO revenue_types VALUES(1, 'Lương', 1)");
-        }
-        if (check(2)){
-            db.execSQL("INSERT INTO revenue_types VALUES(2, 'Thu nhập khác', 1)");
-        }
 
         tvAdd.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,7 +65,7 @@ public class RenevueTypeFragment extends Fragment {
                 }
                 EditText edtName = dialog.findViewById(R.id.edt_renevue_type_add_name);
                 Button btnAdd = dialog.findViewById(R.id.btn_renevue_type_add);
-                Button btnCanel = dialog.findViewById(R.id.btn_renevue_type_add_canel);
+                Button btnCanel = dialog.findViewById(R.id.btn_renevue_type_add_cancel);
                 btnCanel.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -90,8 +82,9 @@ public class RenevueTypeFragment extends Fragment {
                             return;
                         }
                         Toast.makeText(view.getContext(), "Bạn đã thêm thành công!", Toast.LENGTH_SHORT).show();
-                        db.execSQL("INSERT INTO revenue_types VALUES(null, '"+name+"', 1)");
-                        actionGetData();
+                        database.insert_Renevue_Type(name, userId);
+                        adapter.setData(getList());
+                        adapter.notifyDataSetChanged();
                         dialog.dismiss();
                     }
                 });
@@ -99,37 +92,38 @@ public class RenevueTypeFragment extends Fragment {
             }
         });
 
+        RecyclerView.ItemDecoration decoration = new DividerItemDecoration(view.getContext(), DividerItemDecoration.VERTICAL);
+        rcV.addItemDecoration(decoration);
+
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(view.getContext(), RecyclerView.VERTICAL, false);
         rcV.setLayoutManager(linearLayoutManager);
-        adapter.setData(arrayList);
+        adapter = new RenevueTypeAdapter(this, getList());
         rcV.setAdapter(adapter);
-
-        actionGetData();
     }
 
-    private void actionGetData(){
-        SQLiteDatabase db = database.getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM revenue_types", null);
-        arrayList.clear();
-        while (cursor.moveToNext()){
-            int id = cursor.getInt(0);
-            String name = cursor.getString(1);
-            int userId = cursor.getInt(2);
+    private ArrayList<RenevueType> getList(){
+        ArrayList<RenevueType> arrayList = new ArrayList<>();
+        Cursor cursor1 = database.select("revenue_types", userId);
+        while (cursor1.moveToNext()){
+            int id = cursor1.getInt(0);
+            String name = cursor1.getString(1);
+            int userId = cursor1.getInt(2);
             arrayList.add(new RenevueType(id, userId, name));
-            adapter.notifyDataSetChanged();
         }
+        return arrayList;
     }
 
-    public void delete(String name, int i){
+    public void delete(String name, int id){
         AlertDialog.Builder dialog =new AlertDialog.Builder(getActivity());
         dialog.setTitle("Xóa");
         dialog.setMessage("Bạn có chắc muốn xóa "+name+" không?");
         dialog.setPositiveButton("Có", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                SQLiteDatabase db = database.getWritableDatabase();
-                db.execSQL("DELETE FROM revenue_types WHERE id = '"+i+"'");
-                actionGetData();
+                database.delete_Renevue("revenue_types", id);
+                Toast.makeText(getContext(), "Bạn đã xóa  loại thu thành công!", Toast.LENGTH_SHORT).show();
+                adapter.setData(getList());
+                adapter.notifyDataSetChanged();
             }
         });
         dialog.setNegativeButton("Không", new DialogInterface.OnClickListener() {
@@ -138,11 +132,9 @@ public class RenevueTypeFragment extends Fragment {
                 dialog.cancel();
             }
         });
-        AlertDialog alertDialog = dialog.create();
-        alertDialog.show();
-        return;
+        dialog.create().show();
     }
-    public void edit(String ten, int i){
+    public void edit(String ten, int id){
         Dialog dialog = new Dialog(getActivity());
         dialog.setContentView(R.layout.dialog_renevue_type_edit);
         Window window = dialog.getWindow();
@@ -151,7 +143,7 @@ public class RenevueTypeFragment extends Fragment {
         }
         EditText edtName = dialog.findViewById(R.id.edt_renevue_type_edit_name);
         Button btnEdit = dialog.findViewById(R.id.btn_renevue_type_edit);
-        Button btnCanel = dialog.findViewById(R.id.btn_renevue_type_edit_canel);
+        Button btnCanel = dialog.findViewById(R.id.btn_renevue_type_edit_cancel);
 
         edtName.setText(ten);
         btnCanel.setOnClickListener(new View.OnClickListener() {
@@ -164,40 +156,33 @@ public class RenevueTypeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 String name = edtName.getText().toString().trim();
-//                Toast.makeText(v.getContext(), "Chỉnh sửa", Toast.LENGTH_SHORT).show();
                 if(name.isEmpty()){
                     Toast.makeText(v.getContext(), "Bạn phải nhập dữ liệu!", Toast.LENGTH_SHORT).show();
                     dialog.dismiss();
                     return;
                 }
                 else {
-                    SQLiteDatabase db = database.getWritableDatabase();
-                    db.execSQL("UPDATE revenue_types SET name='"+name+"' WHERE id='"+i+"'");
+                    RenevueType renevueType = new RenevueType(id, name);
+                    database.update_Renevue_Type(renevueType);
+                    Toast.makeText(getContext(), "Bạn đã sửa thành công!", Toast.LENGTH_SHORT).show();
+                    adapter.setData(getList());
+                    adapter.notifyDataSetChanged();
                     dialog.dismiss();
-                    actionGetData();
                 }
             }
         });
         dialog.show();
     }
-
-    private boolean check(int i){
-        SQLiteDatabase db1 = database.getReadableDatabase();
-        Cursor cursor = db1.rawQuery("SELECT id FROM revenue_types", null);
-        while (cursor.moveToNext()){
-            int id = cursor.getInt(0);
-            if ( i == id)
-                return false;
-        }
-        return true;
-    }
-
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_renevue_type, container, false);
     }
-
+    public boolean checkUserId(int id){
+        if(id == userId)
+            return true;
+        return false;
+    }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
@@ -205,5 +190,4 @@ public class RenevueTypeFragment extends Fragment {
         mViewModel = new ViewModelProvider(this).get(RenevueTypeViewModel.class);
         // TODO: Use the ViewModel
     }
-
 }

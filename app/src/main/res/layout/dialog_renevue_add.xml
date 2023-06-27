@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.renevue.RenevueDetailFragment"
+    android:orientation="vertical"
+    android:padding="10dp">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Thêm khoản thu"
+        android:textSize="30dp"
+        android:gravity="center"
+        android:textColor="#FF0000"
+        android:layout_marginTop="15dp"/>
+    <AutoCompleteTextView
+        android:id="@+id/auto_renevue_add_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="none"
+        android:hint="Loại thu"
+        android:layout_marginTop="8dp"/>
+    <EditText
+        android:id="@+id/edt_renevue_add_price"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Số tiền"
+        android:inputType="number"
+        android:layout_marginTop="8dp"/>
+    <EditText
+        android:id="@+id/edt_renevue_add_note"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Ghi chú"
+        android:layout_marginTop="8dp"/>
+    <EditText
+        android:id="@+id/edt_renevue_add_date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Thời gian"
+        android:focusable="false"
+        android:clickable="true"
+        android:inputType="none"
+        android:layout_marginTop="8dp"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp">
+        <Button
+            android:id="@+id/btn_renevue_add"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Thêm"
+            android:layout_marginRight="40dp"/>
+        <Button
+            android:id="@+id/btn_renevue_add_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Hủy"
+            android:layout_alignParentEnd="true"/>
+    </LinearLayout>
+
+</LinearLayout>
