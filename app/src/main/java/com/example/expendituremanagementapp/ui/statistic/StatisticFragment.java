@@ -15,8 +15,8 @@ import android.widget.EditText;
 
 import com.example.expendituremanagementapp.MainActivity;
 import com.example.expendituremanagementapp.R;
-import com.example.expendituremanagementapp.adapter.ExpenseTypeStatisticRecyclerView;
-import com.example.expendituremanagementapp.adapter.RevenueTypeStatisticRecyclerView;
+import com.example.expendituremanagementapp.adapter.ExpenseTypeStatisticAdapter;
+import com.example.expendituremanagementapp.adapter.RevenueTypeStatisticAdapter;
 import com.example.expendituremanagementapp.model.ExpenseTypeStatistic;
 import com.example.expendituremanagementapp.model.RevenueTypeStatistic;
 
@@ -24,8 +24,8 @@ import java.util.List;
 
 public class StatisticFragment extends Fragment {
     private RecyclerView rvRevenueTypeStatistic, rvExpenseTypeStatistic;
-    private RevenueTypeStatisticRecyclerView revenueTypeStatisticAdapter;
-    private ExpenseTypeStatisticRecyclerView expenseTypeStatisticAdapter;
+    private RevenueTypeStatisticAdapter revenueTypeStatisticAdapter;
+    private ExpenseTypeStatisticAdapter expenseTypeStatisticAdapter;
     private StatisticViewModel statisticViewModel;
     private EditText etTotalRevenue, etTotalExpense;
     private int userId = 1;
@@ -60,11 +60,11 @@ public class StatisticFragment extends Fragment {
         userId = ((MainActivity) getActivity()).userID();
         statisticViewModel.setUserId(userId);
 
-        revenueTypeStatisticAdapter = new RevenueTypeStatisticRecyclerView(getActivity());
+        revenueTypeStatisticAdapter = new RevenueTypeStatisticAdapter(getActivity());
         rvRevenueTypeStatistic.setLayoutManager(new LinearLayoutManager(getActivity()));
         rvRevenueTypeStatistic.setAdapter(revenueTypeStatisticAdapter);
 
-        expenseTypeStatisticAdapter = new ExpenseTypeStatisticRecyclerView(getActivity());
+        expenseTypeStatisticAdapter = new ExpenseTypeStatisticAdapter(getActivity());
         rvExpenseTypeStatistic.setLayoutManager(new LinearLayoutManager(getActivity()));
         rvExpenseTypeStatistic.setAdapter(expenseTypeStatisticAdapter);
         statisticViewModel.getTotalRevenue().observe(getActivity(), new Observer<Float>() {

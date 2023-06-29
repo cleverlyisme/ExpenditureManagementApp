@@ -15,24 +15,24 @@ import com.example.expendituremanagementapp.model.ExpenseTypeStatistic;
 
 import java.util.List;
 
-public class ExpenseTypeStatisticRecyclerView extends RecyclerView.Adapter<ExpenseTypeStatisticRecyclerView.ExpenseTypeStatisticViewHolder> {
+public class ExpenseTypeStatisticAdapter extends RecyclerView.Adapter<ExpenseTypeStatisticAdapter.ExpenseTypeStatisticViewHolder> {
     private LayoutInflater layoutInflater;
     private List<ExpenseTypeStatistic> lsr;
 
-    public ExpenseTypeStatisticRecyclerView(Context context) {
+    public ExpenseTypeStatisticAdapter(Context context) {
         layoutInflater = LayoutInflater.from(context);
     }
 
     @NonNull
     @Override
-    public ExpenseTypeStatisticRecyclerView.ExpenseTypeStatisticViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ExpenseTypeStatisticAdapter.ExpenseTypeStatisticViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = layoutInflater.inflate(R.layout.recyclerview_expense_statistic, parent, false);
 
-        return new ExpenseTypeStatisticRecyclerView.ExpenseTypeStatisticViewHolder(view);
+        return new ExpenseTypeStatisticAdapter.ExpenseTypeStatisticViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ExpenseTypeStatisticRecyclerView.ExpenseTypeStatisticViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ExpenseTypeStatisticAdapter.ExpenseTypeStatisticViewHolder holder, int position) {
         if (lsr != null) {
             holder.tvExpenseType.setText(lsr.get(position).getName());
             holder.etTotalExpenseType.setText(lsr.get(position).getTotal().toString());

@@ -15,11 +15,11 @@ import com.example.expendituremanagementapp.model.RevenueTypeStatistic;
 
 import java.util.List;
 
-public class RevenueTypeStatisticRecyclerView extends RecyclerView.Adapter<RevenueTypeStatisticRecyclerView.RevenueTypeStatisticViewHolder> {
+public class RevenueTypeStatisticAdapter extends RecyclerView.Adapter<RevenueTypeStatisticAdapter.RevenueTypeStatisticViewHolder> {
     private LayoutInflater layoutInflater;
     private List<RevenueTypeStatistic> lsr;
 
-    public RevenueTypeStatisticRecyclerView(Context context) {
+    public RevenueTypeStatisticAdapter(Context context) {
         layoutInflater = LayoutInflater.from(context);
     }
 
