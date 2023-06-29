@@ -43,11 +43,11 @@ public class RegisterActivity extends AppCompatActivity {
                 if (checkValidate(username, password, confirmPassword)) {
                     long userId = databaseHelper.insertUser(username, password);
                     if (userId != -1) {
-                        Toast.makeText(RegisterActivity.this, "Đăng ký thành công!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(RegisterActivity.this, "Register Success!", Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
                         finish();
                     } else {
-                        Toast.makeText(RegisterActivity.this, "Đăng ký thất bại! Vui lòng thử lại.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(RegisterActivity.this, "Registration failed! Please try again.", Toast.LENGTH_SHORT).show();
                     }
                 }
             }
@@ -64,40 +64,39 @@ public class RegisterActivity extends AppCompatActivity {
 
     private boolean checkValidate(String username, String password, String confirmPassword) {
         if (TextUtils.isEmpty(username)) {
-            editTextUsername.setError("Vui lòng nhập tài khoản");
+            editTextUsername.setError("Please enter your account");
             return false;
         }
 
         if (TextUtils.isEmpty(password)) {
-            editTextPassword.setError("Vui lòng nhập mật khẩu");
+            editTextPassword.setError("Please enter your password");
             return false;
         }
 
         if (TextUtils.isEmpty(confirmPassword)) {
-            editTextConfirmPassword.setError("Vui lòng xác nhận mật khẩu");
+            editTextConfirmPassword.setError("Please confirm password");
             return false;
         }
 
         if (password.length() < 5) {
-            editTextPassword.setError("Mật khẩu phải có ít nhất 5 kí tự");
+            editTextPassword.setError("Password must be at least 5 characters");
             return false;
         }
 
         if (!password.matches(".*[A-Z].*")) {
-            editTextPassword.setError("Mật khẩu phải chứa ít nhất một chữ cái in hoa");
+            editTextPassword.setError("Password must contain at least one capital letter");
             return false;
         }
 
         if (!password.equals(confirmPassword)) {
-            editTextConfirmPassword.setError("Xác nhận mật khẩu không khớp");
+            editTextConfirmPassword.setError("Confirm password does not match");
             return false;
         }
 
         if (databaseHelper.checkUsername(username)) {
-            editTextUsername.setError("Tên tài khoản đã được sử dụng");
+            editTextUsername.setError("That username is already in use");
             return false;
         }
-
         return true;
     }
 }

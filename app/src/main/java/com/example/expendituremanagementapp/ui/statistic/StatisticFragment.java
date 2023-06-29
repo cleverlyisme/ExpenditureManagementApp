@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 
+import com.example.expendituremanagementapp.MainActivity;
 import com.example.expendituremanagementapp.R;
 import com.example.expendituremanagementapp.adapter.ExpenseTypeStatisticRecyclerView;
 import com.example.expendituremanagementapp.adapter.RevenueTypeStatisticRecyclerView;
@@ -27,6 +28,7 @@ public class StatisticFragment extends Fragment {
     private ExpenseTypeStatisticRecyclerView expenseTypeStatisticAdapter;
     private StatisticViewModel statisticViewModel;
     private EditText etTotalRevenue, etTotalExpense;
+    private int userId = 1;
 
     public StatisticFragment() {}
 
@@ -53,8 +55,10 @@ public class StatisticFragment extends Fragment {
         etTotalExpense = view.findViewById(R.id.etTotalExpense);
         rvRevenueTypeStatistic = view.findViewById(R.id.rvRevenueType);
         rvExpenseTypeStatistic = view.findViewById(R.id.rvExpenseType);
-
         statisticViewModel = new ViewModelProvider(this).get(StatisticViewModel.class);
+
+        userId = ((MainActivity) getActivity()).userID();
+        statisticViewModel.setUserId(userId);
 
         revenueTypeStatisticAdapter = new RevenueTypeStatisticRecyclerView(getActivity());
         rvRevenueTypeStatistic.setLayoutManager(new LinearLayoutManager(getActivity()));

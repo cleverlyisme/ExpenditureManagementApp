@@ -128,7 +128,7 @@ public class RevenueTypeFragment extends Fragment {
                 adapter.notifyDataSetChanged();
             }
         });
-        dialog.setNegativeButton("Không", new DialogInterface.OnClickListener() {
+        dialog.setNegativeButton("No    ", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.cancel();
@@ -180,12 +180,6 @@ public class RevenueTypeFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_revenue_type, container, false);
     }
-    public boolean checkUserId(int id){
-        if(id == userId)
-            return true;
-        return false;
-    }
-
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);

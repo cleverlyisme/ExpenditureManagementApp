@@ -22,7 +22,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="ĐĂNG NHẬP"
+            android:text="LOG IN"
             android:textSize="40dp"
             android:layout_gravity="center"
             android:layout_marginBottom="50dp"
@@ -34,7 +34,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Tài khoản:"
+            android:text="Username:"
             android:textSize="20dp"
             android:textStyle="bold"
             android:typeface="serif"/>
@@ -49,7 +49,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Mật khẩu:"
+            android:text="Password:"
             android:layout_marginTop="20dp"
             android:textSize="20dp"
             android:textStyle="bold"
@@ -69,7 +69,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:textSize="20dp"
-            android:text="Đăng nhập"
+            android:text="LOG IN"
             android:layout_gravity="center"
             android:background="@drawable/buttonshape"
             android:textStyle="bold"
@@ -81,7 +81,7 @@
             android:id="@+id/textViewForgotPassword"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Quên mật khẩu?"
+            android:text="Forgot password?"
             android:layout_marginTop="15dp"
             android:textSize="18dp"
             android:layout_gravity="end"
@@ -95,7 +95,7 @@
             android:layout_gravity="right"
             android:textSize="20dp"
             android:layout_marginTop="20dp"
-            android:text="Chưa có tài khoản? Đăng ký"
+            android:text="No account? Register"
             android:textStyle="italic"
             android:typeface="serif"/>
     </LinearLayout>

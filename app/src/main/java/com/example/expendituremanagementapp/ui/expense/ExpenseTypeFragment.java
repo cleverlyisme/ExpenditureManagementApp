@@ -88,7 +88,7 @@ public class ExpenseTypeFragment extends Fragment {
                             dialog.dismiss();
                             return;
                         }
-                        db.execSQL("INSERT INTO expense_types VALUES(null, '"+name+"', 1)");
+                        db.execSQL("INSERT INTO expense_types VALUES(null, '"+name+"', '"+userId+"')");
                         dialog.dismiss();
                         actionGetData();
                         Toast.makeText(view.getContext(), "Added successfully!", Toast.LENGTH_SHORT).show();
@@ -124,7 +124,7 @@ public class ExpenseTypeFragment extends Fragment {
         AlertDialog.Builder dialog =new AlertDialog.Builder(getActivity());
         dialog.setTitle("Delete");
         dialog.setMessage("Are you sure you want to delete "+name+" ?");
-        dialog.setPositiveButton("Có", new DialogInterface.OnClickListener() {
+        dialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 SQLiteDatabase db = database.getWritableDatabase();
@@ -132,7 +132,7 @@ public class ExpenseTypeFragment extends Fragment {
                 actionGetData();
             }
         });
-        dialog.setNegativeButton("Không", new DialogInterface.OnClickListener() {
+        dialog.setNegativeButton("No", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.cancel();

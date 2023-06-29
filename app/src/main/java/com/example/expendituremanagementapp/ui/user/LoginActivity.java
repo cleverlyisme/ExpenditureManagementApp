@@ -42,7 +42,7 @@ public class LoginActivity extends AppCompatActivity {
 
                 if (checkValidate(username, password)) {
                     if (databaseHelper.checkUser(username, password)) {
-                        Toast.makeText(LoginActivity.this, "Đăng nhập thành công!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(LoginActivity.this, "Logged in successfully!", Toast.LENGTH_SHORT).show();
 //                      startActivity(new Intent(LoginActivity.this, MainActivity.class));
                         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                         intent.putExtra("username", username);
@@ -51,7 +51,7 @@ public class LoginActivity extends AppCompatActivity {
                         startActivity(intent);
                         finish();
                     } else {
-                        Toast.makeText(LoginActivity.this, "Thông tin đăng nhập không đúng!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(LoginActivity.this, "Login information is incorrect!", Toast.LENGTH_SHORT).show();
                     }
                 }
             }
@@ -76,11 +76,11 @@ public class LoginActivity extends AppCompatActivity {
 
     private boolean checkValidate(String username, String password) {
         if (TextUtils.isEmpty(username)) {
-            editTextUsername.setError("Vui lòng nhập tài khoản");
+            editTextUsername.setError("Please enter your account");
             return false;
         }
         if (TextUtils.isEmpty(password)) {
-            editTextPassword.setError("Vui lòng nhập mật khẩu");
+            editTextPassword.setError("Please enter your password");
             return false;
         }
         return true;

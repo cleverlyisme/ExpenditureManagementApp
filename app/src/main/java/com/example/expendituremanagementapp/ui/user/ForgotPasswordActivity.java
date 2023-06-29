@@ -53,7 +53,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         String username = editTextUsername.getText().toString();
 
         if (TextUtils.isEmpty(username)) {
-            editTextUsername.setError("Vui lòng nhập tài khoản");
+            editTextUsername.setError("Please enter your account name");
             return;
         }
         // Kiểm tra xem tài khoản có tồn tại trong cơ sở dữ liệu hay không
@@ -67,18 +67,18 @@ public class ForgotPasswordActivity extends AppCompatActivity {
                 showPasswordAlertDialog(newPassword);
             } else {
                 // Hiển thị thông báo lỗi khi cập nhật mật khẩu mới
-                Toast.makeText(ForgotPasswordActivity.this, "Có lỗi xảy ra. Vui lòng thử lại sau.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ForgotPasswordActivity.this, "An error occurred. Please try again later.", Toast.LENGTH_SHORT).show();
             }
         } else {
             // Hiển thị thông báo tài khoản không tồn tại
-            Toast.makeText(ForgotPasswordActivity.this, "Tài khoản không tồn tại.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(ForgotPasswordActivity.this, "Account does not exist.", Toast.LENGTH_SHORT).show();
         }
     }
 
     private void showPasswordAlertDialog(String newPassword) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Mật khẩu mới");
-        builder.setMessage("Mật khẩu mới của bạn là: " + newPassword);
+        builder.setTitle("New password");
+        builder.setMessage("Your new password is: " + newPassword);
         builder.setCancelable(false); // Không cho phép đóng dialog bằng cách nhấn nút Back hoặc bấm bên ngoài dialog
         builder.setPositiveButton("Đóng", new DialogInterface.OnClickListener() {
             @Override

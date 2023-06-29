@@ -46,22 +46,12 @@ public class ExpenseTypeAdapter extends RecyclerView.Adapter<ExpenseTypeAdapter.
         holder.delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int id = expenseType.getId();
-                if(id == 1 || id == 2){
-                    Toast.makeText(context.getActivity(), "This type can't be deleted!", Toast.LENGTH_SHORT).show();
-                }
-                else
                     context.delete(expenseType.getName(), expenseType.getId());
             }
         });
         holder.edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int id = expenseType.getId();
-                if(id == 1 || id == 2){
-                    Toast.makeText(context.getActivity(), "This type can't be edited!", Toast.LENGTH_SHORT).show();
-                }
-                else
                     context.edit(expenseType.getName(), expenseType.getId());
             }
         });

@@ -47,23 +47,13 @@ public class RevenueTypeAdapter extends RecyclerView.Adapter<RevenueTypeAdapter.
         holder.delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int id = revenueType.getUserId();
-                if(id == 1 && !context.checkUserId(id)){
-                    Toast.makeText(v.getContext(), "This type can't be deleted!", Toast.LENGTH_SHORT).show();
-                }
-                else
-                    context.delete(revenueType.getName(), revenueType.getId());
+                context.delete(revenueType.getName(), revenueType.getId());
             }
         });
         holder.edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int id = revenueType.getUserId();
-                if(id == 1 && !context.checkUserId(id)){
-                    Toast.makeText(v.getContext(), "This type can't be edited!", Toast.LENGTH_SHORT).show();
-                }
-                else
-                    context.edit(revenueType.getName(), revenueType.getId());
+                context.edit(revenueType.getName(), revenueType.getId());
             }
         });
     }

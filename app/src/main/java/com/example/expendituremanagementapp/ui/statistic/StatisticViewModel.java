@@ -8,6 +8,7 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import com.example.expendituremanagementapp.MainActivity;
 import com.example.expendituremanagementapp.database.DatabaseHelper;
 import com.example.expendituremanagementapp.helper.AsyncTaskExecutorService;
 import com.example.expendituremanagementapp.model.ExpenseTypeStatistic;
@@ -22,6 +23,14 @@ public class StatisticViewModel extends AndroidViewModel {
     private MutableLiveData<List<RevenueTypeStatistic>> lsr;
     private MutableLiveData<List<ExpenseTypeStatistic>> lst;
 
+    private int userId = 1;
+
+    public int getUserId(){
+        return userId;
+    }
+    public void setUserId(int userId){
+        this.userId = userId;
+    }
     public StatisticViewModel(Application application) {
         super(application);
 
@@ -57,7 +66,7 @@ public class StatisticViewModel extends AndroidViewModel {
             SQLiteDatabase database = db.getReadableDatabase();
             Cursor cursor = database.rawQuery("SELECT b.id, b.name, " +
                     "sum(a.price) AS total FROM revenues a " +
-                    "INNER JOIN revenue_types b ON a.revenueTypeId = b.id " +
+                    "INNER JOIN revenue_types b ON a.revenueTypeId = b.id WHERE a.userId = '"+userId+"' " +
                     "GROUP BY  b.id, b.name", null);
             List<RevenueTypeStatistic> ls = new ArrayList<>();
             while (cursor.moveToNext()) {
@@ -77,7 +86,7 @@ public class StatisticViewModel extends AndroidViewModel {
             SQLiteDatabase database = db.getReadableDatabase();
             Cursor cursor = database.rawQuery("SELECT b.id, b.name, " +
                     "sum(a.price) AS total FROM expenses a " +
-                    "INNER JOIN expense_types b ON a.expenseTypeId = b.id " +
+                    "INNER JOIN expense_types b ON a.expenseTypeId = b.id WHERE a.userId = '"+userId+"' " +
                     "GROUP BY  b.id, b.name", null);
             List<ExpenseTypeStatistic> ls = new ArrayList<>();
             while (cursor.moveToNext()) {
@@ -95,7 +104,7 @@ public class StatisticViewModel extends AndroidViewModel {
     private class TotalRevenueAsyncTask extends AsyncTaskExecutorService<Void, Void, Float> {
         protected Float doInBackground(Void params) {
             SQLiteDatabase database = db.getReadableDatabase();
-            Cursor cursor = database.rawQuery("SELECT SUM(price) FROM revenues", null);
+            Cursor cursor = database.rawQuery("SELECT SUM(price) FROM revenues WHERE userId = '"+userId+"'", null);
             float sum = 0;
             if (cursor.moveToFirst()) {
                 sum = cursor.getFloat(0);
@@ -111,7 +120,7 @@ public class StatisticViewModel extends AndroidViewModel {
     private class TotalExpenseAsyncTask extends AsyncTaskExecutorService<Void, Void, Float> {
         protected Float doInBackground(Void params) {
             SQLiteDatabase database = db.getReadableDatabase();
-            Cursor cursor = database.rawQuery("SELECT SUM(price) FROM expenses", null);
+            Cursor cursor = database.rawQuery("SELECT SUM(price) FROM expenses WHERE userId = '"+userId+"'", null);
             float sum = 0;
             if (cursor.moveToFirst()) {
                 sum = cursor.getFloat(0);

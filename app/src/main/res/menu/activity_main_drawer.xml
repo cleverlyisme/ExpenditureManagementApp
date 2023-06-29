@@ -6,34 +6,35 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_home"
-            android:icon="@drawable/ic_menu_camera"
+            android:icon="@drawable/baseline_home_24"
             android:title="@string/menu_home" />
         <item
             android:id="@+id/nav_expense"
-            android:icon="@drawable/ic_menu_slideshow"
+            android:icon="@drawable/ic_action_add_renevue_expense"
             android:title="Expenses" />
         <item
             android:id="@+id/nav_revenue"
-            android:icon="@drawable/ic_menu_slideshow"
+            android:icon="@drawable/ic_action_add_renevue_expense"
             android:title="Revenues" />
         <item
             android:id="@+id/nav_plan"
-            android:icon="@drawable/ic_menu_slideshow"
+            android:icon="@drawable/baseline_library_books_24"
             android:title="Plan" />
         <item
             android:id="@+id/nav_statistic"
-            android:icon="@drawable/ic_menu_slideshow"
+            android:icon="@drawable/baseline_chart"
             android:title="Statistic" />
     </group>
     <item android:title="Exit" >
         <menu>
             <item
                 android:id="@+id/nav_logout"
-                android:icon="@drawable/ic_menu_slideshow"
-                android:title="Logout" />
+                android:icon="@drawable/baseline_logout_24"
+                android:title="Logout"
+                android:onClick="logout"/>
             <item
                 android:id="@+id/nav_exit"
-                android:icon="@drawable/ic_menu_slideshow"
+                android:icon="@drawable/baseline_exit_to_app_24"
                 android:title="Exit" />
         </menu>
     </item>

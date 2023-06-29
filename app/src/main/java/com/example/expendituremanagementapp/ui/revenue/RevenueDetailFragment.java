@@ -201,16 +201,17 @@ public class RevenueDetailFragment extends Fragment {
         AlertDialog.Builder dialog =new AlertDialog.Builder(getActivity());
         dialog.setTitle("Delete");
         dialog.setMessage("Are you sure you want to delete this revenue?");
-        dialog.setPositiveButton("Có", new DialogInterface.OnClickListener() {
+        dialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 database.delete_Revenue("revenues", id);
                 adapter.setData(getList());
                 adapter.notifyDataSetChanged();
                 tvTotal.setText(getPriceTotal() + "");
+                Toast.makeText(getActivity(), "Successful delete", Toast.LENGTH_SHORT).show();
             }
         });
-        dialog.setNegativeButton("Không", new DialogInterface.OnClickListener() {
+        dialog.setNegativeButton("No", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.cancel();
