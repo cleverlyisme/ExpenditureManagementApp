@@ -28,10 +28,6 @@ public class HomeFragment extends Fragment {
     private float money = 0;
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-
-
-        HomeViewModel homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
-
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
@@ -53,6 +49,8 @@ public class HomeFragment extends Fragment {
         tvMoney.setText(money + "");
         tvExpense.setText(getPriceExpense() + "");
         tvRevenue.setText(getPriceRenevue() + "");
+
+
     }
     private float getPriceRenevue(){
         SQLiteDatabase db = database.getReadableDatabase();

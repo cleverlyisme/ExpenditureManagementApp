@@ -33,14 +33,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 "name TEXT, " +
                 "userId INTEGER NOT NULL, " +
-                "FOREIGN KEY (userId) REFERENCES users(id))";
+                "FOREIGN KEY (userId) REFERENCES users(id) ON DELETE CASCADE)";
         db.execSQL(createExpenseTypesTableQuery);
 
         String createRevenueTypesTableQuery = "CREATE TABLE IF NOT EXISTS revenue_types (" +
                 "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 "name TEXT, " +
                 "userId INTEGER NOT NULL, " +
-                "FOREIGN KEY (userId) REFERENCES users(id))";
+                "FOREIGN KEY (userId) REFERENCES users(id) ON DELETE CASCADE)";
         db.execSQL(createRevenueTypesTableQuery);
 
         String createExpensesTableQuery = "CREATE TABLE IF NOT EXISTS expenses (" +
@@ -162,6 +162,19 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         String update = "UPDATE revenues SET name = '"+ revenue.getName()+"', price = "+ revenue.getPrice()+", note = '"+ revenue.getNote()+"', date = '"+LocalDate.parse(revenue.getDate())+"' ";
         SQLiteDatabase db = getWritableDatabase();
         db.execSQL(update);
+    }
+    public Cursor selectTotalStatistic(String table, int userId) {
+        String sql = "SELECT SUM(price) from "+table+" WHERE userId = "+userId;
+        SQLiteDatabase db = getReadableDatabase();
+        return db.rawQuery(sql, null);
+    }
+    public Cursor selectListTypesStatistic(String table1, String table2, String foreign, int userId) {
+        String sql = "SELECT b.id, b.name, "
+                + "sum(a.price) AS total FROM "+table1+" a "
+                + "INNER JOIN "+table2+" b ON a."+foreign+" = b.id WHERE a.userId = "+userId
+                + " GROUP BY  b.id, b.name";
+        SQLiteDatabase db = getReadableDatabase();
+        return db.rawQuery(sql, null);
     }
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
