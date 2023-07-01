@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import com.example.expendituremanagementapp.model.Expense;
+import com.example.expendituremanagementapp.model.Plan;
 import com.example.expendituremanagementapp.model.Revenue;
 import com.example.expendituremanagementapp.model.RevenueType;
 
@@ -66,6 +67,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 "FOREIGN KEY (userId) REFERENCES users(id) ON DELETE CASCADE,"+
                 "FOREIGN KEY (revenueTypeId) REFERENCES revenues(id) ON DELETE CASCADE)";
         db.execSQL(createRevenuesTableQuery);
+
+        String CREATE_PLANS_TABLE = "CREATE TABLE " + "plans" + "("
+                + "id" + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+                + "plan_title" + " TEXT,"
+                + "start_date" + " TEXT,"
+                + "end_date" + " TEXT,"
+                + "dudget_amount" + " REAL" + ")";
+        db.execSQL(CREATE_PLANS_TABLE);
     }
 
     public long insertUser(String username, String password) {
@@ -162,6 +171,18 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         String update = "UPDATE revenues SET name = '"+ revenue.getName()+"', price = "+ revenue.getPrice()+", note = '"+ revenue.getNote()+"', date = '"+LocalDate.parse(revenue.getDate())+"' ";
         SQLiteDatabase db = getWritableDatabase();
         db.execSQL(update);
+    }
+    public void addPlan(Plan plan) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put("plan_title", plan.getPlanTitle());
+        values.put("start_date", plan.getStartDate());
+        values.put("end_date", plan.getEndDate());
+        values.put("budget_amount", plan.getBudgetAmount());
+
+        db.insert("plans", null, values);
+        db.close();
     }
     public Cursor selectTotalStatistic(String table, int userId) {
         String sql = "SELECT SUM(price) from "+table+" WHERE userId = "+userId;
